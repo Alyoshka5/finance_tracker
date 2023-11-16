@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
 import TransactionEntry from './TransactionEntry';
 
+const serverUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8080': '';
+
 export default function TransactionPage() {
 
     const [transactions, setTransactions] = useState([]);
 
     const getTransactions = async () => {
-        const response = await fetch('/transactions');
+        const response = await fetch(`${serverUrl}/transactions`);
         const transactionsData = await response.json();
 
         setTransactions(transactionsData);
-        console.log(transactionsData);
     }
 
     useEffect(() => {
