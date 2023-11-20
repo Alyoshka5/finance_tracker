@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
-import TransactionPage from './components/transactions/TransactionPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import TransactionPage from './components/transactions/TransactionPage';
+import Signup from './components/authentication/Signup';
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<TransactionPage />} />
+          <Route path='sign-up' element={<Signup />} />
         </Routes>
       </BrowserRouter>
       
