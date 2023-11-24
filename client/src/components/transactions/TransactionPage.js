@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import TransactionEntry from './TransactionEntry';
+import axios from 'axios';
 
 export default function TransactionPage() {
 
     const [transactions, setTransactions] = useState([]);
 
     const getTransactions = async () => {
-        const response = await fetch('/transactions');
-        const transactionsData = await response.json();
+        const response = await axios.get('/transactions');
 
-        setTransactions(transactionsData);
+        setTransactions(response.data);
     }
 
     useEffect(() => {
