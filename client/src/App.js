@@ -12,7 +12,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<TransactionPage />} />
-          <Route path='sign-up' element={<Signup />} />
+          <Route path='signup' element={<Signup />} />
         </Routes>
       </BrowserRouter>
       
