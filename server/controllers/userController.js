@@ -1,5 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const User = require('../models/user');
 
@@ -40,8 +42,23 @@ exports.login = asyncHandler(async (req, res, next) => {
         return res.status(401).json({ 'message': 'Email not found.'});
     
     const passwordMatch = await bcrypt.compare(password, user.password);
-    if (passwordMatch)
-        res.status(200).json({ 'message': 'Loged in' });
-    else
+    if (passwordMatch) {
+        const accessToken = jwt.sign(
+            { 'userId': user._id },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: '30s' }
+        );
+        const refreshToken = jwt.sign(
+            { 'userId': user._id },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: '1d' }
+        );
+
+        await User.findOneAndUpdate({ email: email }, { refreshToken: refreshToken });
+
+        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.status(200).json({ accessToken });
+    } else {
         res.status(401).json({ 'message': 'Incorrect email or password' });
+    }
 });
