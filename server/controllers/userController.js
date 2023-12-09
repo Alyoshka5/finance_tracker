@@ -44,12 +44,12 @@ exports.login = asyncHandler(async (req, res, next) => {
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (passwordMatch) {
         const accessToken = jwt.sign(
-            { 'userId': user._id },
+            { 'userId': user.id },
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: '30s' }
         );
         const refreshToken = jwt.sign(
-            { 'userId': user._id },
+            { 'userId': user.id },
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: '1d' }
         );
