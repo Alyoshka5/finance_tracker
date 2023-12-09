@@ -37,7 +37,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     if (!email || !password)
         return res.status(400).json({ 'message': 'Email and password are required'});
 
-    const user = await User.findOne({email: email}).exec();
+    const user = await User.findOne({ email }).exec();
     if (!user)
         return res.status(401).json({ 'message': 'Email not found.'});
     
@@ -54,7 +54,7 @@ exports.login = asyncHandler(async (req, res, next) => {
             { expiresIn: '1d' }
         );
 
-        await User.findOneAndUpdate({ email: email }, { refreshToken: refreshToken });
+        await User.findOneAndUpdate({ email }, { refreshToken });
 
         res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
         res.status(200).json({ accessToken });
