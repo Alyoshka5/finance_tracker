@@ -24,7 +24,7 @@ export default function Login() {
         }
 
         try {
-            const response = await axios.post('/login', userData);
+            const response = await axios.post('/auth/login', userData);
             console.log(response.data);
             console.log(response.data.message);
         } catch(err) {

@@ -8,7 +8,9 @@ const cors = require('cors');
 
 require('dotenv').config();
 
-const indexRouter = require('./routes/index');
+const transactionRouter = require('./routes/transactions');
+const authRouter = require('./routes/auth');
+const verifyJWT = require('./middleware/verifyJWT');
 
 const app = express();
 
@@ -28,7 +30,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(cors());
 
-app.use('/', indexRouter);
+app.use('/auth', authRouter);
+app.use('/transactions', verifyJWT, transactionRouter);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
