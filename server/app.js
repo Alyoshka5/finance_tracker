@@ -31,7 +31,8 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(cors());
 
 app.use('/auth', authRouter);
-app.use('/transactions', verifyJWT, transactionRouter);
+app.use(verifyJWT);
+app.use('/transactions', transactionRouter);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
