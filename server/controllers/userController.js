@@ -62,3 +62,28 @@ exports.login = asyncHandler(async (req, res, next) => {
         res.status(401).json({ 'message': 'Incorrect email or password' });
     }
 });
+
+exports.handleRefreshToken = asyncHandler(async (req, res, next) => {
+    const cookies = req.cookies;
+    if (!cookies?.jwt)
+        return res.sendStatus(401);
+
+    const refreshToken = cookies.jwt;
+
+    const user = await User.findOne({ refreshToken }).exec();
+    if (!user)
+        return res.sendStatus(403);
+    
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+        if (err || user.id !== decoded.userId)
+            return res.sendStatus(403);
+
+        const accessToken = jwt.sign(
+            { 'userId': decoded.userId },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: '30s' }
+        );
+
+        res.json({ accessToken });
+    });
+});
