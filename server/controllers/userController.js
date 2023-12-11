@@ -63,6 +63,25 @@ exports.login = asyncHandler(async (req, res, next) => {
     }
 });
 
+exports.logout = asyncHandler(async (req, res, next) => {
+    // delete access token on client
+    const cookies = req.cookies;
+    if (!cookies?.jwt)
+        return res.sendStatus(204);
+
+    const refreshToken = cookies.jwt;
+
+    const user = await User.findOne({ refreshToken }).exec();
+    if (!user) {
+        res.clearCookie('jwt', { httpOnly: true });
+        return res.sendStatus(204);
+    }
+    
+    await User.findByIdAndUpdate(user.id, { refreshToken: null });
+    res.clearCookie('jwt', { httpOnly: true });
+    res.sendStatus(204);
+});
+
 exports.handleRefreshToken = asyncHandler(async (req, res, next) => {
     const cookies = req.cookies;
     if (!cookies?.jwt)
