@@ -54,7 +54,7 @@ exports.login = asyncHandler(async (req, res, next) => {
             { expiresIn: '1d' }
         );
 
-        await User.findOneAndUpdate({ email }, { refreshToken });
+        await User.findByIdAndUpdate(user.id, { refreshToken });
 
         res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
         res.status(200).json({ accessToken });
