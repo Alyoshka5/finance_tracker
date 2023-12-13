@@ -56,7 +56,7 @@ exports.login = asyncHandler(async (req, res, next) => {
 
         await User.findByIdAndUpdate(user.id, { refreshToken });
 
-        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('jwt', refreshToken, { httpOnly: true, secure: true, maxAge: 24 * 60 * 60 * 1000 });
         res.status(200).json({ accessToken });
     } else {
         res.status(401).json({ 'message': 'Incorrect email or password' });
@@ -78,7 +78,7 @@ exports.logout = asyncHandler(async (req, res, next) => {
     }
     
     await User.findByIdAndUpdate(user.id, { refreshToken: null });
-    res.clearCookie('jwt', { httpOnly: true });
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
     res.sendStatus(204);
 });
 
