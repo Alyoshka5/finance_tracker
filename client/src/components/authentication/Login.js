@@ -30,8 +30,9 @@ export default function Login() {
         try {
             const response = await axios.post('/auth/login', userData);
             const accessToken = response?.data?.accessToken;
+            const userId = response.data.userId;
 
-            setAuth({ accessToken });
+            setAuth({ accessToken, userId });
 
             console.log(response.data)
         } catch(err) {
