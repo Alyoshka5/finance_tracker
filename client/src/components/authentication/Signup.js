@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { TextField, Box, Grid, Container, Button, Typography } from '@mui/material';
+import axios from 'axios';
 
 const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/;
 const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -28,9 +29,30 @@ export default function Signup() {
         setValidMatch(match);
     }, [pwd, matchPwd]);
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const userData = {
+            email: email,
+            password: pwd
+        }
+
+        try {
+            const response = await axios.post('/auth/signup', userData);
+            console.log(response.data.message);
+        } catch(err) {
+            console.log(err.response.data.message);
+        }
+
+        setEmail('');
+        setPwd('');
+        setMatchPwd('');
+    }
+
     return (
         <Container component='main' maxWidth='xs'>
             <Box component='form' noValidate
+                onSubmit={handleSubmit}
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
