@@ -79,6 +79,7 @@ export default function Signup() {
                             name='email'
                             label='Email Address'
                             autoComplete='email'
+                            value={email}
                             error={email !== '' && !validEmail && !emailFocus}
                             helperText={(email && !validEmail && !emailFocus) ? 'Invalid Email' : ''}
                             onFocus={() => setEmailFocus(true)}
@@ -94,6 +95,7 @@ export default function Signup() {
                             label='Password'
                             type='password'
                             autoComplete='new-password'
+                            value={pwd}
                             error={pwd !== '' && !validPwd && !pwdFocus}
                             helperText={(pwd && !validPwd && !pwdFocus) ? 'Must include an uppercase and lowercase letter, a number, and a special character' : ''}
                             onFocus={() => setPwdFocus(true)}
@@ -109,6 +111,7 @@ export default function Signup() {
                             name='confirm-password'
                             label='Confirm Password'
                             type='password'
+                            value={matchPwd}
                             error={matchPwd !== '' && !validMatch && !matchFocus}
                             helperText={(matchPwd && !validMatch && !matchFocus) ? 'Passwords must match' : ''}
                             onFocus={() => setMatchFocus(true)}
