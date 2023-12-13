@@ -1,10 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { TextField, Box, Grid, Container, Button, Typography } from '@mui/material';
 import axios from 'axios';
+
+import AuthContext from '../../context/AuthProvider';
 
 const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/;
 
 export default function Login() {
+    const { setAuth } = useContext(AuthContext);
+
     const [email, setEmail] = useState('');
     const [validEmail, setValidEmail] = useState(false);
     const [emailFocus, setEmailFocus] = useState(false);
@@ -25,8 +29,11 @@ export default function Login() {
 
         try {
             const response = await axios.post('/auth/login', userData);
-            console.log(response.data);
-            console.log(response.data.message);
+            const accessToken = response?.data?.accessToken;
+
+            setAuth({ accessToken });
+
+            console.log(response.data)
         } catch(err) {
             console.log(err.response.data.message);
         }
