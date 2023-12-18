@@ -5,6 +5,7 @@ import TransactionPage from './components/transactions/TransactionPage';
 import Signup from './components/authentication/Signup';
 import Login from './components/authentication/Login';
 import RequireAuth from './components/authentication/RequireAuth';
+import PersistLogin from './components/authentication/PersistLogin';
 
 function App() {
 
@@ -16,8 +17,10 @@ function App() {
           <Route path='signup' element={<Signup />} />
           <Route path='login' element={<Login />} />
 
-          <Route element={<RequireAuth />} >
-            <Route path='/' element={<TransactionPage />} />
+          <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth />} >
+              <Route path='/' element={<TransactionPage />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>
