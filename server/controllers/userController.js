@@ -64,7 +64,6 @@ exports.login = asyncHandler(async (req, res, next) => {
 });
 
 exports.logout = asyncHandler(async (req, res, next) => {
-    // delete access token on client
     const cookies = req.cookies;
     if (!cookies?.jwt)
         return res.sendStatus(204);
