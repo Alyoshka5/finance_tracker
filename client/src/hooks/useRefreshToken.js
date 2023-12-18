@@ -10,7 +10,7 @@ export default function useRefreshToken() {
         });
 
         setAuth(prev => {
-            return { ...prev, accessToken: response.data.accessToken }
+            return { ...prev, userId: response.data.userId, accessToken: response.data.accessToken }
         });
         
         return response.data.accessToken;

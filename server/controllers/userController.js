@@ -103,6 +103,6 @@ exports.handleRefreshToken = asyncHandler(async (req, res, next) => {
             { expiresIn: '30s' }
         );
 
-        res.json({ accessToken });
+        res.json({ accessToken, userId: decoded.userId });
     });
 });
