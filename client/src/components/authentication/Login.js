@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { TextField, Box, Grid, Container, Button, Typography } from '@mui/material';
 import axios from 'axios';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import useAuth from '../../hooks/useAuth';
 
@@ -8,6 +9,10 @@ const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}
 
 export default function Login() {
     const { setAuth } = useAuth();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.path || '/';
 
     const [email, setEmail] = useState('');
     const [validEmail, setValidEmail] = useState(false);
@@ -35,11 +40,13 @@ export default function Login() {
             setAuth({ accessToken, userId });
 
             console.log(response.data)
+
+            setEmail('');
+            navigate(from, { replace: true });
         } catch(err) {
             console.log(err.response.data.message);
         }
 
-        setEmail('');
         setPwd('');
     }
 
