@@ -78,7 +78,7 @@ exports.logout = asyncHandler(async (req, res, next) => {
     }
     
     await User.findByIdAndUpdate(user.id, { refreshToken: null });
-    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+    res.clearCookie('jwt', { httpOnly: true, secure: true });
     res.sendStatus(204);
 });
 
