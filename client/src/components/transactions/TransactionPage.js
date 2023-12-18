@@ -1,21 +1,19 @@
 import { useState, useEffect } from 'react';
 import TransactionEntry from './TransactionEntry';
-import axios from 'axios';
-import useAuth from '../../hooks/useAuth';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 export default function TransactionPage() {
-    const { auth } = useAuth();
+    const axiosPrivate = useAxiosPrivate();
 
     const [transactions, setTransactions] = useState([]);
 
     const getTransactions = async () => {
-        const response = await axios.get('/transactions', {
-            headers: {
-                'authorization': `Bearer ${auth.accessToken}`
-            }
-        });
-
-        setTransactions(response.data);
+        try {
+            const response = await axiosPrivate.get('/transactions');
+            setTransactions(response.data);
+        } catch(err) {
+            
+        }
     }
 
     useEffect(() => {
