@@ -46,7 +46,7 @@ exports.login = asyncHandler(async (req, res, next) => {
         const accessToken = jwt.sign(
             { 'userId': user.id },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '30s' }
+            { expiresIn: '10m' }
         );
         const refreshToken = jwt.sign(
             { 'userId': user.id },
