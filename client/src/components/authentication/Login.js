@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { TextField, Box, Grid, Container, Button, Typography } from '@mui/material';
+import { TextField, Box, Grid, Container, Button, Typography, Checkbox, FormControlLabel } from '@mui/material';
 import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ import useAuth from '../../hooks/useAuth';
 const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/;
 
 export default function Login() {
-    const { setAuth } = useAuth();
+    const { setAuth, persist, setPersist } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -23,6 +23,10 @@ export default function Login() {
     useEffect(() => {
         setValidEmail(emailRegex.test(email));
     }, [email]);
+
+    useEffect(() => {
+        localStorage.setItem('persist', persist);
+    }, [persist]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -52,6 +56,7 @@ export default function Login() {
 
     return (
         <Container component='main' maxWidth='xs'>
+            <Link to='/'>Transactions</Link>
             <Box component='form' noValidate
                 onSubmit={handleSubmit}
                 sx={{
@@ -99,6 +104,16 @@ export default function Login() {
                             value={pwd}
                             onChange={(e) => setPwd(e.target.value)}
                             
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormControlLabel control={
+                            <Checkbox 
+                            checked={persist}
+                            onClick={() => setPersist(prevPersist => !prevPersist)}
+                            />
+                        }    
+                            label='Remember me'
                         />
                     </Grid>
                     <Grid item>
