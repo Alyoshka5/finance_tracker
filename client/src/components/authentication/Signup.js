@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { TextField, Box, Grid, Container, Button, Typography } from '@mui/material';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/;
 const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -128,6 +129,9 @@ export default function Signup() {
                             Create Account
                         </Button>
                     </Grid>
+                </Grid>
+                <Grid item xs={12} sx={{alignSelf: 'start'}}>
+                    <Link to='/login'>Log In</Link>
                 </Grid>
             </Box>
         </Container>

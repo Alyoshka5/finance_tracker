@@ -124,6 +124,9 @@ export default function Login() {
                             Login
                         </Button>
                     </Grid>
+                    <Grid item xs={12}>
+                        <Link to='/signup'>Create Account</Link>
+                    </Grid>
                 </Grid>
             </Box>
         </Container>
