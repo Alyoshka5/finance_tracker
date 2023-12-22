@@ -19,12 +19,27 @@ exports.signup = asyncHandler(async (req, res, next) => {
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        await new User({
+        const user = await new User({
             email,
             password: hashedPassword
         }).save();
-        
-        return res.status(201).json({ 'message': 'User created'});
+
+        const accessToken = jwt.sign(
+            { 'userId': user.id },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: '10m' }
+        );
+        const refreshToken = jwt.sign(
+            { 'userId': user.id },
+            process.env.REFRESH_TOKEN_SECRET,
+            { expiresIn: '7d' }
+        );
+
+        user.refreshToken = refreshToken;
+        await user.save();
+
+        res.cookie('jwt', refreshToken, { httpOnly: true, secure: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.status(200).json({ accessToken, 'userId': user.id });
     } catch(err) {
         return res.status(500).json({ 'message': err.message });
     }

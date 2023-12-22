@@ -1,12 +1,19 @@
 import { useState, useEffect } from 'react';
-import { TextField, Box, Grid, Container, Button, Typography } from '@mui/material';
+import { TextField, Box, Grid, Container, Button, Typography, FormControlLabel, Checkbox } from '@mui/material';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/;
 const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 export default function Signup() {
+    const { setAuth, persist, setPersist } = useAuth();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.path || '/';
+
     const [email, setEmail] = useState('');
     const [validEmail, setValidEmail] = useState(false);
     const [emailFocus, setEmailFocus] = useState(false);
@@ -40,7 +47,11 @@ export default function Signup() {
 
         try {
             const response = await axios.post('/auth/signup', userData);
-            console.log(response.data.message);
+            const accessToken = response?.data?.accessToken;
+            const userId = response.data.userId;
+
+            setAuth({ accessToken, userId });
+            navigate(from, { replace: true });
         } catch(err) {
             console.log(err.response.data.message);
         }
@@ -118,6 +129,16 @@ export default function Signup() {
                             onFocus={() => setMatchFocus(true)}
                             onBlur={() => setMatchFocus(false)}
                             onChange={(e) => setMatchPwd(e.target.value)}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormControlLabel control={
+                            <Checkbox 
+                            checked={persist}
+                            onClick={() => setPersist(prevPersist => !prevPersist)}
+                            />
+                        }    
+                            label='Remember me'
                         />
                     </Grid>
                     <Grid item>
