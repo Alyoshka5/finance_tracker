@@ -32,7 +32,7 @@ export default function TransactionPage() {
 
     return (
         <div>
-            <a href='' onClick={handleLogout}>Logout</a>
+            <button href='' onClick={handleLogout}>Logout</button>
             <h1>Transactions</h1>
             {transactions.map(transaction => (
                 <TransactionEntry key={transaction.date} transaction={transaction} />
