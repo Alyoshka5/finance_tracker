@@ -9,6 +9,8 @@ export default function PersistLogin() {
     const { auth, persist } = useAuth();
 
     useEffect(() => {
+        window.onbeforeunload = () => sessionStorage.setItem('pageRefreshed', true);
+
         let isMounted = true;
         const verifyRefreshToken = async () => {
             try {
@@ -20,14 +22,14 @@ export default function PersistLogin() {
             }
         }
 
-        !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
+        !auth?.accessToken && (persist || sessionStorage.getItem('pageRefreshed')) ? verifyRefreshToken() : setIsLoading(false);
 
         return () => isMounted = false;
     }, []);
 
     return (
         <>
-            {!persist
+            {!persist && !sessionStorage.getItem('pageRefreshed')
                 ? <Outlet />
                 : isLoading
                     ? <p>Loading...</p>
