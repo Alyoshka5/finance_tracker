@@ -66,7 +66,7 @@ exports.login = asyncHandler(async (req, res, next) => {
         const refreshToken = jwt.sign(
             { 'userId': user.id },
             process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: '1d' }
+            { expiresIn: '14d' }
         );
 
         await User.findByIdAndUpdate(user.id, { refreshToken });
