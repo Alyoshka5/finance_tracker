@@ -12,7 +12,7 @@ exports.signup = asyncHandler(async (req, res, next) => {
     if (!email || !password)
         return res.status(400).json({ 'message': 'Email and password are required'});
 
-    const users = await User.find({ email: email }).exec();
+    const users = await User.find({ email: email.toLowerCase() }).exec();
     if (users.length != 0) 
         return res.status(409).json({ 'message': 'User with email already exists' });
     
@@ -20,7 +20,7 @@ exports.signup = asyncHandler(async (req, res, next) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const user = await new User({
-            email,
+            email: email.toLowerCase(),
             password: hashedPassword
         }).save();
 
@@ -52,7 +52,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     if (!email || !password)
         return res.status(400).json({ 'message': 'Email and password are required'});
 
-    const user = await User.findOne({ email }).exec();
+    const user = await User.findOne({ email: email.toLowerCase() }).exec();
     if (!user)
         return res.status(401).json({ 'message': 'Email not found.'});
     
