@@ -1,15 +1,29 @@
 import { useState, useEffect } from 'react';
 import TransactionEntry from './TransactionEntry';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import useLogout from '../../hooks/useLogout';
 
 export default function TransactionPage() {
+    const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const logout = useLogout();
 
     const [transactions, setTransactions] = useState([]);
 
     const getTransactions = async () => {
-        const response = await fetch('/transactions');
-        const transactionsData = await response.json();
+        try {
+            const response = await axiosPrivate.get('/transactions');
+            setTransactions(response.data);
+        } catch(err) {
+            navigate('/login', { state: { from: location }, replace: true });
+        }
+    }
 
-        setTransactions(transactionsData);
+    const handleLogout = async () => {
+        await logout();
+        navigate('/login');
     }
 
     useEffect(() => {
@@ -18,6 +32,7 @@ export default function TransactionPage() {
 
     return (
         <div>
+            <button href='' onClick={handleLogout}>Logout</button>
             <h1>Transactions</h1>
             {transactions.map(transaction => (
                 <TransactionEntry key={transaction.date} transaction={transaction} />

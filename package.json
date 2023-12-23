@@ -13,8 +13,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
-    "react-router-dom": "^6.19.0"
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.4.10"
