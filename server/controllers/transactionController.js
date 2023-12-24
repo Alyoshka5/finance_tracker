@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler');
 const Transaction = require('../models/transaction');
 
 exports.list = asyncHandler(async (req, res, next) => {
-    const transactions = await Transaction.find({}).exec();
+    const transactions = await Transaction.find({ user: req.userId }).exec();
 
     res.json(transactions);
 });
