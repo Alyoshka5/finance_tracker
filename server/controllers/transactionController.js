@@ -14,10 +14,10 @@ exports.create = asyncHandler(async (req, res, next) => {
         user: req.userId,
         ...req.body
     });
-    
-    await transaction.save();
 
-    res.json({});
+    await transaction.save();
+    
+    res.json(transaction);
 });
 
 exports.update = asyncHandler(async (req, res, next) => {

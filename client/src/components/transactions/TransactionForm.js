@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { TextField, Box, Grid, Button, Typography } from '@mui/material';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import useTransactions from '../../hooks/useTransactions';
 
 export default function TransactionForm() {
     const axiosPrivate = useAxiosPrivate();
+    const { setTransactions } = useTransactions();
 
     const [transaction, setTransaction] = useState({
         amount: '',
@@ -18,7 +20,9 @@ export default function TransactionForm() {
         e.preventDefault();
 
         try {
-            const response = await axiosPrivate.post('/transactions', transaction)
+            const response = await axiosPrivate.post('/transactions', transaction);
+            setTransactions(prev => [...prev, response.data]);
+
         } catch (err) {
             console.log(err.response.data.message);
         }
