@@ -4,6 +4,7 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useLogout from '../../hooks/useLogout';
 import { DataGrid } from '@mui/x-data-grid';
+import TransactionForm from './TransactionForm';
 
 export default function TransactionPage() {
     const axiosPrivate = useAxiosPrivate();
@@ -45,6 +46,7 @@ export default function TransactionPage() {
             <button href='' onClick={handleLogout}>Logout</button>
             <h1>Transactions</h1>
             <DataGrid rows={transactions} columns={columns} getRowId={(row) => row._id} />
+            <TransactionForm />
         </div>
     );
 }
