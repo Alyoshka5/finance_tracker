@@ -43,8 +43,6 @@ export default function Login() {
 
             setAuth({ accessToken, userId });
 
-            console.log(response.data)
-
             setEmail('');
             navigate(from, { replace: true });
         } catch(err) {
