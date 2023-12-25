@@ -9,7 +9,15 @@ exports.list = asyncHandler(async (req, res, next) => {
 });
 
 exports.create = asyncHandler(async (req, res, next) => {
-    res.json({})
+
+    const transaction = new Transaction({
+        user: req.userId,
+        ...req.body
+    });
+    
+    await transaction.save();
+
+    res.json({});
 });
 
 exports.update = asyncHandler(async (req, res, next) => {
