@@ -5,14 +5,14 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useLogout from '../../hooks/useLogout';
 import { DataGrid } from '@mui/x-data-grid';
 import TransactionForm from './TransactionForm';
+import useTransactions from '../../hooks/useTransactions';
 
 export default function TransactionPage() {
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const location = useLocation();
     const logout = useLogout();
-
-    const [transactions, setTransactions] = useState([]);
+    const { transactions, setTransactions } = useTransactions();
 
     const getTransactions = async () => {
         try {
