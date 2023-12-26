@@ -3,7 +3,7 @@ import { TextField, Box, Grid, Button, Typography } from '@mui/material';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useTransactions from '../../hooks/useTransactions';
 
-export default function TransactionForm() {
+export default function TransactionForm({ setOpen }) {
     const axiosPrivate = useAxiosPrivate();
     const { setTransactions } = useTransactions();
 
@@ -36,7 +36,11 @@ export default function TransactionForm() {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '50%'
+                width: '50%',
+                backgroundColor: '#fff',
+                padding: '5rem 3rem',
+                borderRadius: '1rem',
+                boxShadow: '0 0 0.5rem #999'
             }}
         >
             <Typography component='h1' variant='h4'>
@@ -136,6 +140,8 @@ export default function TransactionForm() {
                     </Button>
                 </Grid>
             </Grid>
+
+            <Button onClick={() => setOpen(false)}>Close</Button>
         </Box>
     );
 }

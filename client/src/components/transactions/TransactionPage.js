@@ -6,6 +6,7 @@ import useLogout from '../../hooks/useLogout';
 import { DataGrid } from '@mui/x-data-grid';
 import TransactionForm from './TransactionForm';
 import useTransactions from '../../hooks/useTransactions';
+import ModalContainer from '../ModalContainer';
 
 export default function TransactionPage() {
     const axiosPrivate = useAxiosPrivate();
@@ -13,6 +14,8 @@ export default function TransactionPage() {
     const location = useLocation();
     const logout = useLogout();
     const { transactions, setTransactions } = useTransactions();
+
+    const [open, setOpen] = useState(false);
 
     const getTransactions = async () => {
         try {
@@ -46,7 +49,10 @@ export default function TransactionPage() {
             <button href='' onClick={handleLogout}>Logout</button>
             <h1>Transactions</h1>
             <DataGrid rows={transactions} columns={columns} getRowId={(row) => row._id} />
-            <TransactionForm />
+            <button onClick={() => setOpen(true)}>Add Transaction</button>
+            <ModalContainer open={open} setOpen={setOpen}>
+                <TransactionForm setOpen={setOpen} />
+            </ModalContainer>
         </div>
     );
 }
