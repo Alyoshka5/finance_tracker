@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { TextField, Box, Grid, Button, Typography } from '@mui/material';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useTransactions from '../../hooks/useTransactions';
+import useModal from '../../hooks/useModal';
 
-export default function TransactionForm({ setOpen }) {
+export default function TransactionForm() {
     const axiosPrivate = useAxiosPrivate();
     const { setTransactions } = useTransactions();
+    const {setModalOpen} = useModal();
 
     const [transaction, setTransaction] = useState({
         amount: '',
@@ -141,7 +143,7 @@ export default function TransactionForm({ setOpen }) {
                 </Grid>
             </Grid>
 
-            <Button onClick={() => setOpen(false)}>Close</Button>
+            <Button onClick={() => setModalOpen(false)}>Close</Button>
         </Box>
     );
 }
