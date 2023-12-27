@@ -5,6 +5,7 @@ import useLogout from '../../hooks/useLogout';
 import TransactionForm from './TransactionForm';
 import useTransactions from '../../hooks/useTransactions';
 import TransactionTable from './TransactionTable';
+import useOpenModal from '../../hooks/useOpenModal';
 
 export default function TransactionPage() {
     const axiosPrivate = useAxiosPrivate();
@@ -12,8 +13,7 @@ export default function TransactionPage() {
     const location = useLocation();
     const logout = useLogout();
     const { setTransactions } = useTransactions();
-
-    const [open, setOpen] = useState(false);
+    const openModal = useOpenModal();
 
     const getTransactions = async () => {
         try {
@@ -35,11 +35,11 @@ export default function TransactionPage() {
 
     return (
         <div>
-            <button href='' onClick={handleLogout}>Logout</button>
+            <button href='' onClick={handleLogout} style={{marginTop: '5px'}}>Logout</button>
             <h1>Transactions</h1>
             <TransactionTable />
-            <button onClick={() => setOpen(true)}>Add Transaction</button>
-            <TransactionForm setOpen={setOpen} />
+            <button onClick={() => openModal(<TransactionForm />)}>Add Transaction</button>
+            
         </div>
     );
 }
