@@ -14,7 +14,7 @@ export default function TransactionEntry({ transaction }) {
             onClick={() => openModal(<TransactionDetailModal transaction={transaction} />)}
         >
             <TableCell component="th" scope="row"  sx={{fontWeight: 'bold'}}>
-                $ {transaction.amount}
+                $ {transaction.amount.toFixed(2)}
             </TableCell>
             <TableCell>{transaction.date}</TableCell>
             <TableCell>{transaction.type}</TableCell>
