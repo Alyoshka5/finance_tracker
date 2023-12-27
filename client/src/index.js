@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/AuthProvider';
 import { TransactionProvider } from './context/TransactionProvider';
+import { ModalProvider } from './context/ModalProvider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root')
