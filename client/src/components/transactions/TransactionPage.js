@@ -4,7 +4,6 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useLogout from '../../hooks/useLogout';
 import TransactionForm from './TransactionForm';
 import useTransactions from '../../hooks/useTransactions';
-import ModalContainer from '../ModalContainer';
 import TransactionTable from './TransactionTable';
 
 export default function TransactionPage() {
@@ -40,9 +39,7 @@ export default function TransactionPage() {
             <h1>Transactions</h1>
             <TransactionTable />
             <button onClick={() => setOpen(true)}>Add Transaction</button>
-            <ModalContainer open={open} setOpen={setOpen}>
-                <TransactionForm setOpen={setOpen} />
-            </ModalContainer>
+            <TransactionForm setOpen={setOpen} />
         </div>
     );
 }
