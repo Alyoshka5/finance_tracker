@@ -25,6 +25,15 @@ export default function TransactionForm() {
             const response = await axiosPrivate.post('/transactions', transaction);
             setTransactions(prev => [...prev, response.data]);
 
+            setTransaction({
+                amount: '',
+                date: '',
+                type: '',
+                category: '',
+                description: '',
+                details: ''
+            });
+            setModalOpen(false);
         } catch (err) {
             console.log(err.response.data.message);
         }
