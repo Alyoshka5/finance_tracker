@@ -13,7 +13,9 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <TransactionProvider>
-        <App />
+        <ModalProvider>
+          <App />
+        </ModalProvider>
       </TransactionProvider>
     </AuthProvider>
   </React.StrictMode>
