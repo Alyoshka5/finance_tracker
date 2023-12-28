@@ -92,7 +92,7 @@ export default function TransactionForm({ targetTransaction }) {
                         fullWidth
                         label='Date'
                         type='date'
-                        value={transaction.date}
+                        value={transaction.date.split('T')[0]}
                         onChange={(e) => setTransaction(prev => {
                             return {...prev, date: e.target.value}
                         })}
