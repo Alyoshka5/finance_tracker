@@ -1,4 +1,6 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, Button } from "@mui/material";
+import useOpenModal from '../../hooks/useOpenModal';
+import TransactionForm from './TransactionForm';
 
 const containerStyles = {
     width: '50%',
@@ -9,6 +11,7 @@ const containerStyles = {
 }
 
 export default function TransactionDetailModal({ transaction }) {
+    const openModal = useOpenModal();
 
     return (
         <Box sx={containerStyles}>
@@ -61,6 +64,10 @@ export default function TransactionDetailModal({ transaction }) {
                     <Typography variant='body1'>
                         {transaction.details || 'No details'}
                     </Typography>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Button onClick={() => openModal(<TransactionForm targetTransaction={transaction} />)}>Edit</Button>
                 </Grid>
             </Grid>
         </Box>
