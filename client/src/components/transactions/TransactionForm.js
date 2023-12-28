@@ -1,22 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { TextField, Box, Grid, Button, Typography } from '@mui/material';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useTransactions from '../../hooks/useTransactions';
 import useModal from '../../hooks/useModal';
 
-export default function TransactionForm() {
+const emptyTransaction = {
+    amount: '',
+    date: '',
+    type: '',
+    category: '',
+    description: '',
+    details: ''
+}
+
+export default function TransactionForm({ targetTransaction }) {
     const axiosPrivate = useAxiosPrivate();
     const { setTransactions } = useTransactions();
-    const {setModalOpen} = useModal();
+    const {modalOpen, setModalOpen} = useModal();
 
-    const [transaction, setTransaction] = useState({
-        amount: '',
-        date: '',
-        type: '',
-        category: '',
-        description: '',
-        details: ''
-    });
+    const [transaction, setTransaction] = useState(targetTransaction || emptyTransaction);
+    
+
+    useEffect(() => {
+        if (!modalOpen && targetTransaction)
+            setTransaction(emptyTransaction);
+    }, [modalOpen]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -55,7 +63,7 @@ export default function TransactionForm() {
             }}
         >
             <Typography component='h1' variant='h4'>
-                New Transaction
+                {targetTransaction ? 'Edit' : 'New'} Transaction
             </Typography>
 
             <Grid container
@@ -142,12 +150,15 @@ export default function TransactionForm() {
                     />
                 </Grid>
                 
-                <Grid item>
+                <Grid item xs={10}
+                    display='flex'
+                    justifyContent='center'   
+                >
                     <Button
                         type='submit'
                         variant='contained'
                     >
-                        Add Transaction
+                        Save
                     </Button>
                 </Grid>
             </Grid>
