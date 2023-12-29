@@ -21,7 +21,11 @@ exports.create = asyncHandler(async (req, res, next) => {
 });
 
 exports.update = asyncHandler(async (req, res, next) => {
-    res.json({})
+    const transaction = new Transaction(req.body);
+
+    await Transaction.findByIdAndUpdate(req.body._id, transaction);
+
+    res.json(transaction);
 });
 
 exports.delete = asyncHandler(async (req, res, next) => {
