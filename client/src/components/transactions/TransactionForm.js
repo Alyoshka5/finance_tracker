@@ -30,8 +30,19 @@ export default function TransactionForm({ targetTransaction }) {
         e.preventDefault();
 
         try {
-            const response = await axiosPrivate.post('/transactions', transaction);
-            setTransactions(prev => [...prev, response.data]);
+            
+            if (targetTransaction) {
+                const response = await axiosPrivate.put('/transactions', transaction);
+
+                setTransactions(prev => {
+                    prev = prev.filter(cur => cur._id !== response.data._id);
+                    return [...prev, response.data];
+                });
+            } else {
+                const response = await axiosPrivate.post('/transactions', transaction);
+                setTransactions(prev => [...prev, response.data]);
+            }
+    
 
             setTransaction({
                 amount: '',
