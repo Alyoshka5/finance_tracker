@@ -8,9 +8,9 @@ router.get('/', transactionController.list);
 
 router.post('/', transactionController.create);
 
-router.put('/:id', transactionController.update);
+router.put('/', transactionController.update);
 
-router.delete('/:id', transactionController.delete);
+router.delete('/', transactionController.delete);
 
 
 module.exports = router;
