@@ -3,6 +3,7 @@ import { TextField, Box, Grid, Button, Typography } from '@mui/material';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useTransactions from '../../hooks/useTransactions';
 import useModal from '../../hooks/useModal';
+import useSortTransactions from '../../hooks/useSortTransactions';
 
 const emptyTransaction = {
     amount: '',
@@ -17,6 +18,7 @@ export default function TransactionForm({ targetTransaction }) {
     const axiosPrivate = useAxiosPrivate();
     const { setTransactions } = useTransactions();
     const {modalOpen, setModalOpen} = useModal();
+    const sortTransactions = useSortTransactions();
 
     const [transaction, setTransaction] = useState(targetTransaction || emptyTransaction);
     
@@ -36,11 +38,11 @@ export default function TransactionForm({ targetTransaction }) {
 
                 setTransactions(prev => {
                     prev = prev.filter(cur => cur._id !== response.data._id);
-                    return [...prev, response.data];
+                    return sortTransactions([...prev, response.data]);
                 });
             } else {
                 const response = await axiosPrivate.post('/transactions', transaction);
-                setTransactions(prev => [...prev, response.data]);
+                setTransactions(prev => sortTransactions([...prev, response.data]));
             }
     
 
@@ -105,7 +107,7 @@ export default function TransactionForm({ targetTransaction }) {
                         type='date'
                         value={transaction.date.split('T')[0]}
                         onChange={(e) => setTransaction(prev => {
-                            return {...prev, date: e.target.value}
+                            return {...prev, date: e.target.value.split('T')[0]}
                         })}
                     />
                 </Grid>

@@ -6,6 +6,7 @@ import TransactionForm from './TransactionForm';
 import useTransactions from '../../hooks/useTransactions';
 import TransactionTable from './TransactionTable';
 import useOpenModal from '../../hooks/useOpenModal';
+import useSortTransactions from '../../hooks/useSortTransactions';
 
 export default function TransactionPage() {
     const axiosPrivate = useAxiosPrivate();
@@ -14,11 +15,12 @@ export default function TransactionPage() {
     const logout = useLogout();
     const { setTransactions } = useTransactions();
     const openModal = useOpenModal();
+    const sortTransactions = useSortTransactions();
 
     const getTransactions = async () => {
         try {
             const response = await axiosPrivate.get('/transactions');
-            setTransactions(response.data);
+            setTransactions(sortTransactions(response.data));
         } catch(err) {
             navigate('/login', { state: { from: location }, replace: true });
         }

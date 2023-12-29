@@ -9,7 +9,8 @@ const TransactionSchema = new Schema({
     date: { type: Date, default: Date.now },
     category: { type: String },
     description: { type: String, maxLength: 200 },
-    details: { type: String, maxLength: 500 }
+    details: { type: String, maxLength: 500 },
+    dateCreated: { type: Date, default: Date.now }
 })
 
 module.exports = mongoose.model('Transaction', TransactionSchema);
