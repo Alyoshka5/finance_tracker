@@ -10,7 +10,7 @@ router.post('/', transactionController.create);
 
 router.put('/', transactionController.update);
 
-router.delete('/', transactionController.delete);
+router.delete('/:id', transactionController.delete);
 
 
 module.exports = router;

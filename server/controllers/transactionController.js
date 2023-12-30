@@ -29,5 +29,7 @@ exports.update = asyncHandler(async (req, res, next) => {
 });
 
 exports.delete = asyncHandler(async (req, res, next) => {
-    res.json({})
+    const transaction = await Transaction.findByIdAndDelete(req.params.id);
+
+    res.json(transaction);
 });

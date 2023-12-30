@@ -1,6 +1,10 @@
 import { Box, Grid, Typography, Button } from "@mui/material";
 import useOpenModal from '../../hooks/useOpenModal';
 import TransactionForm from './TransactionForm';
+import { useEffect, useState } from "react";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import useTransactions from "../../hooks/useTransactions";
+import useModal from "../../hooks/useModal";
 
 const containerStyles = {
     width: '50%',
@@ -12,6 +16,28 @@ const containerStyles = {
 
 export default function TransactionDetailModal({ transaction }) {
     const openModal = useOpenModal();
+    const [deleteClicked, setDeleteClicked] = useState(false);
+    const axiosPrivate = useAxiosPrivate();
+    const { setTransactions } = useTransactions();
+    const { modalOpen, setModalOpen } = useModal();
+
+    useEffect(() => {
+        if (!modalOpen)
+            setDeleteClicked(false);
+    }, [modalOpen]);
+
+    const handleDelete = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await axiosPrivate.delete(`/transactions/${transaction._id}`);
+            
+            setTransactions(prev => prev.filter(cur => cur._id !== response.data._id));
+            setModalOpen(false);
+        } catch (err) {
+            console.log(err.response.data.message);
+        }
+    }
 
     return (
         <Box sx={containerStyles}>
@@ -67,7 +93,22 @@ export default function TransactionDetailModal({ transaction }) {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <Button onClick={() => openModal(<TransactionForm targetTransaction={transaction} />)}>Edit</Button>
+                    {
+                        deleteClicked ?
+                            <Box>
+                                <Typography variant='body' fontWeight='medium'>Are you sure you want to delete this transaction?</Typography>
+                                <Box>
+                                    <Button onClick={handleDelete}>Confirm</Button>
+                                    <Button onClick={() => setDeleteClicked(false)}>Cancel</Button>
+                                </Box>
+                            </Box>
+                        :
+                            <Box>
+                                <Button onClick={() => openModal(<TransactionForm targetTransaction={transaction} />)}>Edit</Button>
+                                <Button onClick={() => setDeleteClicked(true)}>Delete</Button>
+                            </Box>
+                            
+                    }
                 </Grid>
             </Grid>
         </Box>
