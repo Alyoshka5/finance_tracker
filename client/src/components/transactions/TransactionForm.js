@@ -4,6 +4,8 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useTransactions from '../../hooks/useTransactions';
 import useModal from '../../hooks/useModal';
 import useSortTransactions from '../../hooks/useSortTransactions';
+import useOpenModal from '../../hooks/useOpenModal';
+import TransactionDetailModal from './TransactionDetailModal';
 
 const emptyTransaction = {
     amount: '',
@@ -19,6 +21,7 @@ export default function TransactionForm({ targetTransaction }) {
     const { setTransactions } = useTransactions();
     const {modalOpen, setModalOpen} = useModal();
     const sortTransactions = useSortTransactions();
+    const openModal = useOpenModal();
 
     const [transaction, setTransaction] = useState(targetTransaction || emptyTransaction);
     
@@ -32,16 +35,16 @@ export default function TransactionForm({ targetTransaction }) {
         e.preventDefault();
 
         try {
-            
+            let response;
             if (targetTransaction) {
-                const response = await axiosPrivate.put('/transactions', transaction);
+                response = await axiosPrivate.put('/transactions', transaction);
 
                 setTransactions(prev => {
                     prev = prev.filter(cur => cur._id !== response.data._id);
                     return sortTransactions([...prev, response.data]);
                 });
             } else {
-                const response = await axiosPrivate.post('/transactions', transaction);
+                response = await axiosPrivate.post('/transactions', transaction);
                 setTransactions(prev => sortTransactions([...prev, response.data]));
             }
     
@@ -54,7 +57,7 @@ export default function TransactionForm({ targetTransaction }) {
                 description: '',
                 details: ''
             });
-            setModalOpen(false);
+            openModal(<TransactionDetailModal transaction={response.data} />);
         } catch (err) {
             console.log(err.response.data.message);
         }
@@ -176,7 +179,13 @@ export default function TransactionForm({ targetTransaction }) {
                 </Grid>
             </Grid>
 
-            <Button onClick={() => setModalOpen(false)}>Close</Button>
+            <Box>
+                {targetTransaction ?
+                    <Button onClick={() => openModal(<TransactionDetailModal transaction={targetTransaction} />)}>Cancel</Button>
+                :
+                    <Button onClick={() => setModalOpen(false)}>Close</Button>    
+                }
+            </Box>
         </Box>
     );
 }
