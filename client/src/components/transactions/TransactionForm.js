@@ -63,6 +63,14 @@ export default function TransactionForm({ targetTransaction }) {
         }
     }
 
+    const getCurrentDateFormatted = () => {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        const formatter = new Intl.DateTimeFormat('en-US', options);
+        
+        const [month, day, year] = formatter.formatToParts(new Date()).map(({ value }) => value).filter(value => value !== '/');
+        return `${year}-${month}-${day}`;
+    }
+
     return (
         <Box component='form' noValidate
             onSubmit={handleSubmit}
@@ -108,7 +116,7 @@ export default function TransactionForm({ targetTransaction }) {
                         fullWidth
                         label='Date'
                         type='date'
-                        value={transaction.date.split('T')[0]}
+                        value={transaction.date.split('T')[0] || getCurrentDateFormatted()}
                         onChange={(e) => setTransaction(prev => {
                             return {...prev, date: e.target.value.split('T')[0]}
                         })}
