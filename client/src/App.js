@@ -6,6 +6,7 @@ import Signup from './components/authentication/Signup';
 import Login from './components/authentication/Login';
 import RequireAuth from './components/authentication/RequireAuth';
 import PersistLogin from './components/authentication/PersistLogin';
+import ModalContainer from './components/ModalContainer';
 
 function App() {
 
@@ -19,7 +20,13 @@ function App() {
 
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth />} >
-              <Route path='/' element={<TransactionPage />} />
+              <Route element={<ModalContainer />}>
+              
+                <Route path='/' element={
+                    <TransactionPage />
+                } />
+                
+              </Route>
             </Route>
           </Route>
         </Routes>
