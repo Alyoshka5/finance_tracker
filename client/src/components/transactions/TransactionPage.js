@@ -5,6 +5,7 @@ import useLogout from '../../hooks/useLogout';
 import useTransactions from '../../hooks/useTransactions';
 import useSortTransactions from '../../hooks/useSortTransactions';
 import TransactionTableContainer from './TransactionTableContainer';
+import { Box, Button } from '@mui/material';
 
 export default function TransactionPage() {
     const axiosPrivate = useAxiosPrivate();
@@ -33,9 +34,9 @@ export default function TransactionPage() {
     }, []);
 
     return (
-        <div>
-            <button href='' onClick={handleLogout} style={{marginTop: '5px'}}>Logout</button>
+        <Box>
+            <Button onClick={handleLogout} sx={{marginTop: '5px'}}>Logout</Button>
             <TransactionTableContainer />
-        </div>
+        </Box>
     );
 }

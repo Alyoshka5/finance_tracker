@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import TransactionTable from "./TransactionTable";
 import TransactionForm from "./TransactionForm";
 import useOpenModal from "../../hooks/useOpenModal";
@@ -8,9 +8,9 @@ export default function TransactionTableContainer() {
 
     return (
         <Box>
-            <h1>Transactions</h1>
+            <Typography variant='h4'>Transactions</Typography>
             <TransactionTable />
-            <button onClick={() => openModal(<TransactionForm />)}>Add Transaction</button>
+            <Button variant='outlined' onClick={() => openModal(<TransactionForm />)}>Add Transaction</Button>
         </Box>
     )
 }
