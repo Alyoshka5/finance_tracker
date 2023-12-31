@@ -5,7 +5,8 @@ import useLogout from '../../hooks/useLogout';
 import useTransactions from '../../hooks/useTransactions';
 import useSortTransactions from '../../hooks/useSortTransactions';
 import TransactionTableContainer from './TransactionTableContainer';
-import { Box, Button } from '@mui/material';
+import { Button, Grid } from '@mui/material';
+import OverviewPanel from '../overview_panel/OverviewPanel';
 
 export default function TransactionPage() {
     const axiosPrivate = useAxiosPrivate();
@@ -34,9 +35,16 @@ export default function TransactionPage() {
     }, []);
 
     return (
-        <Box>
-            <Button onClick={handleLogout} sx={{marginTop: '5px'}}>Logout</Button>
-            <TransactionTableContainer />
-        </Box>
+        <Grid container sx={{padding: '1rem'}}>
+            <Grid item xs={12}> 
+                <Button onClick={handleLogout}>Logout</Button>
+            </Grid>
+            <Grid item xs={9.5}>
+                <TransactionTableContainer />
+            </Grid>
+            <Grid item>
+                <OverviewPanel />
+            </Grid>
+        </Grid>
     );
 }
