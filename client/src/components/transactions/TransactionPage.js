@@ -42,7 +42,7 @@ export default function TransactionPage() {
             <Grid item xs={9.5}>
                 <TransactionTableContainer />
             </Grid>
-            <Grid item>
+            <Grid item xs={2.5}>
                 <OverviewPanel />
             </Grid>
         </Grid>
