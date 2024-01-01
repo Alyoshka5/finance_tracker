@@ -45,7 +45,17 @@ export default function OverviewPanel() {
         return sortedGroups;
     }
 
-    const groupList = Object.keys(groupedCategories[1][transactionType]).length === 0 ? groupCategories()[1][transactionType] : groupedCategories[1][transactionType];
+    const getSortedGroupList = () => {
+        let list = Object.keys(groupedCategories[1][transactionType]).length === 0 ? groupCategories()[1][transactionType] : groupedCategories[1][transactionType];
+        const sortedList = {};
+        const sortedKeys = Object.keys(list).sort((prev, curr) => prev === 'Other' ? 1 : curr === 'Other' ? -1 :  prev === curr ? 0 : prev < curr ? -1 : 1)
+        
+        sortedKeys.forEach(key => sortedList[key] = list[key]);
+
+        return sortedList;
+    }
+
+    const groupList = getSortedGroupList();
 
     return (
         <Box>
@@ -56,7 +66,7 @@ export default function OverviewPanel() {
                 <Button variant={transactionType === 'Income' ? 'outlined' : ''} onClick={() => setTransactionType('Income')}>Income</Button>
             </Box>
 
-            {Object.keys(groupList).sort((prev, curr) => prev === 'Other' ? 1 : curr === 'Other' ? -1 :  prev === curr ? 0 : prev < curr ? -1 : 1).map(key => {
+            {Object.keys(groupList).map(key => {
                 return (<GroupRow key={key} groupTitle={key} amount={groupList[key]} />)
             })}
         </Box>
