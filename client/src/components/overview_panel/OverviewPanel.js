@@ -2,6 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import useTransactions from "../../hooks/useTransactions";
 import { useEffect, useState } from "react";
 import GroupRow from "./GroupRow";
+import OverviewChart from "./OverviewChart";
 
 
 export default function OverviewPanel() {
@@ -58,8 +59,13 @@ export default function OverviewPanel() {
     const groupList = getSortedGroupList();
 
     return (
-        <Box>
-            <Typography variant='h5'>Overview</Typography>
+        <Box sx={{
+            display: 'flex',
+            flexDirection: 'column'
+        }}>
+            <Typography variant='h5' style={{zIndex: '1'}}>Overview</Typography>
+
+            <OverviewChart groupList={groupList} />
 
             <Box>
                 <Button variant={transactionType === 'Expense' ? 'outlined' : ''} onClick={() => setTransactionType('Expense')}>Expense</Button>
