@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useLogout from '../../hooks/useLogout';
-import TransactionForm from './TransactionForm';
 import useTransactions from '../../hooks/useTransactions';
-import TransactionTable from './TransactionTable';
-import useOpenModal from '../../hooks/useOpenModal';
 import useSortTransactions from '../../hooks/useSortTransactions';
+import TransactionTableContainer from './TransactionTableContainer';
+import { Button, Grid } from '@mui/material';
+import OverviewPanel from '../overview_panel/OverviewPanel';
 
 export default function TransactionPage() {
     const axiosPrivate = useAxiosPrivate();
@@ -14,7 +14,6 @@ export default function TransactionPage() {
     const location = useLocation();
     const logout = useLogout();
     const { setTransactions } = useTransactions();
-    const openModal = useOpenModal();
     const sortTransactions = useSortTransactions();
 
     const getTransactions = async () => {
@@ -36,12 +35,16 @@ export default function TransactionPage() {
     }, []);
 
     return (
-        <div>
-            <button href='' onClick={handleLogout} style={{marginTop: '5px'}}>Logout</button>
-            <h1>Transactions</h1>
-            <TransactionTable />
-            <button onClick={() => openModal(<TransactionForm />)}>Add Transaction</button>
-            
-        </div>
+        <Grid container sx={{padding: '1rem'}}>
+            <Grid item xs={12}> 
+                <Button onClick={handleLogout}>Logout</Button>
+            </Grid>
+            <Grid item xs={9.5}>
+                <TransactionTableContainer />
+            </Grid>
+            <Grid item xs={2.5}>
+                <OverviewPanel />
+            </Grid>
+        </Grid>
     );
 }
