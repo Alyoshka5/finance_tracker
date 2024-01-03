@@ -19,7 +19,9 @@ export default function TransactionEntry({ transaction }) {
             <TableCell>{transaction.date}</TableCell>
             <TableCell>{transaction.type}</TableCell>
             <TableCell>{transaction.category}</TableCell>
-            <TableCell>{transaction.description}</TableCell>
+            <TableCell>
+                {transaction.description.length > 70 ? `${transaction.description.substring(0, 70)}...` : transaction.description}
+            </TableCell>
         </TableRow>
     );
 }
