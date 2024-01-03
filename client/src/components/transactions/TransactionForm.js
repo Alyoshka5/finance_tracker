@@ -7,6 +7,14 @@ import useSortTransactions from '../../hooks/useSortTransactions';
 import useOpenModal from '../../hooks/useOpenModal';
 import TransactionDetailModal from './TransactionDetailModal';
 
+const getCurrentDateFormatted = () => {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const formatter = new Intl.DateTimeFormat('en-US', options);
+    
+    const [month, day, year] = formatter.formatToParts(new Date()).map(({ value }) => value).filter(value => value !== '/');
+    return `${year}-${month}-${day}`;
+}
+
 const emptyTransaction = {
     amount: '',
     date: '',
@@ -34,11 +42,13 @@ export default function TransactionForm({ targetTransaction }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!transaction.date)
+            transaction.date = getCurrentDateFormatted();
+
         try {
             let response;
             if (targetTransaction) {
                 response = await axiosPrivate.put('/transactions', transaction);
-
                 setTransactions(prev => {
                     prev = prev.filter(cur => cur._id !== response.data._id);
                     return sortTransactions([...prev, response.data]);
@@ -61,14 +71,6 @@ export default function TransactionForm({ targetTransaction }) {
         } catch (err) {
             console.log(err.response.data.message);
         }
-    }
-
-    const getCurrentDateFormatted = () => {
-        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-        const formatter = new Intl.DateTimeFormat('en-US', options);
-        
-        const [month, day, year] = formatter.formatToParts(new Date()).map(({ value }) => value).filter(value => value !== '/');
-        return `${year}-${month}-${day}`;
     }
 
     return (
