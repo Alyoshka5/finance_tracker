@@ -16,9 +16,9 @@ export default function TransactionEntry({ transaction }) {
             <TableCell component="th" scope="row"  sx={{fontWeight: 'bold'}}>
                 $ {transaction.amount.toFixed(2)}
             </TableCell>
-            <TableCell>{transaction.date}</TableCell>
+            <TableCell>{transaction.date.split('T')[0]}</TableCell>
             <TableCell>{transaction.type}</TableCell>
-            <TableCell>{transaction.category}</TableCell>
+            <TableCell>{transaction.category || '—'}</TableCell>
             <TableCell>
                 {transaction.description.length > 70 ? `${transaction.description.substring(0, 70)}...` : transaction.description}
             </TableCell>
