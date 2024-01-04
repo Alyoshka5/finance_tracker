@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useTransactions from "../../hooks/useTransactions";
 import useModal from "../../hooks/useModal";
+import useFormatDate from "../../hooks/useFormatDate";
 
 const containerStyles = {
     width: '50%',
@@ -20,6 +21,7 @@ export default function TransactionDetailModal({ transaction }) {
     const axiosPrivate = useAxiosPrivate();
     const { setTransactions } = useTransactions();
     const { modalOpen, setModalOpen } = useModal();
+    const formatDate = useFormatDate();
 
     useEffect(() => {
         if (!modalOpen)
@@ -57,7 +59,7 @@ export default function TransactionDetailModal({ transaction }) {
                     <Typography variant='overline' sx={{fontWeight: 'bold', fontSize: '1rem', mr: '1rem'}}>
                         Date
                     </Typography>
-                    {transaction.date}
+                    {formatDate(transaction.date, true)}
                 </Grid>
 
                 <Grid item xs={6}>
