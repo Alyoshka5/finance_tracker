@@ -1,10 +1,12 @@
 import { TableRow, TableCell } from "@mui/material";
 import useOpenModal from "../../hooks/useOpenModal";
 import TransactionDetailModal from './TransactionDetailModal';
+import useFormatDate from "../../hooks/useFormatDate";
 
 export default function TransactionEntry({ transaction }) {
     const openModal = useOpenModal();
-    
+    const formatDate = useFormatDate();
+
     return (
         <TableRow
             sx={{ 
@@ -16,10 +18,12 @@ export default function TransactionEntry({ transaction }) {
             <TableCell component="th" scope="row"  sx={{fontWeight: 'bold'}}>
                 $ {transaction.amount.toFixed(2)}
             </TableCell>
-            <TableCell>{transaction.date}</TableCell>
+            <TableCell>{formatDate(transaction.date, false)}</TableCell>
             <TableCell>{transaction.type}</TableCell>
-            <TableCell>{transaction.category}</TableCell>
-            <TableCell>{transaction.description}</TableCell>
+            <TableCell>{transaction.category || '—'}</TableCell>
+            <TableCell>
+                {transaction.description.length > 70 ? `${transaction.description.substring(0, 70)}...` : transaction.description}
+            </TableCell>
         </TableRow>
     );
 }
