@@ -8,6 +8,7 @@ import TransactionTableContainer from './TransactionTableContainer';
 import { Button, Grid } from '@mui/material';
 import OverviewPanel from '../overview_panel/OverviewPanel';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
+import SiteHeader from '../SiteHeader';
 
 export default function TransactionPage() {
     useDocumentTitle('Transactions');
@@ -38,6 +39,9 @@ export default function TransactionPage() {
 
     return (
         <Grid container sx={{padding: '1rem'}}>
+            <Grid item> 
+                <SiteHeader />
+            </Grid>
             <Grid item xs={12}> 
                 <Button onClick={handleLogout}>Logout</Button>
             </Grid>
