@@ -4,10 +4,12 @@ import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import useAuth from '../../hooks/useAuth';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/;
 
 export default function Login() {
+    useDocumentTitle('Log In');
     const { setAuth, persist, setPersist } = useAuth();
 
     const navigate = useNavigate();

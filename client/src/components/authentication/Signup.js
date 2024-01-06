@@ -3,11 +3,13 @@ import { TextField, Box, Grid, Container, Button, Typography, FormControlLabel, 
 import axios from 'axios';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/;
 const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 export default function Signup() {
+    useDocumentTitle('Create Account');
     const { setAuth, persist, setPersist } = useAuth();
 
     const navigate = useNavigate();

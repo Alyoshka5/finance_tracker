@@ -7,8 +7,10 @@ import useSortTransactions from '../../hooks/useSortTransactions';
 import TransactionTableContainer from './TransactionTableContainer';
 import { Button, Grid } from '@mui/material';
 import OverviewPanel from '../overview_panel/OverviewPanel';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 export default function TransactionPage() {
+    useDocumentTitle('Transactions');
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const location = useLocation();
