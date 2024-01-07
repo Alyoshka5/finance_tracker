@@ -6,19 +6,22 @@ import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/AuthProvider';
 import { TransactionProvider } from './context/TransactionProvider';
 import { ModalProvider } from './context/ModalProvider';
+import StyleProvider from './context/StyleProvider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root')
 );
 root.render(
   <React.StrictMode>
-    <AuthProvider>
-      <TransactionProvider>
-        <ModalProvider>
-          <App />
-        </ModalProvider>
-      </TransactionProvider>
-    </AuthProvider>
+    <StyleProvider>
+      <AuthProvider>
+        <TransactionProvider>
+          <ModalProvider>
+            <App />
+          </ModalProvider>
+        </TransactionProvider>
+      </AuthProvider>
+    </StyleProvider>
   </React.StrictMode>
 );
 
