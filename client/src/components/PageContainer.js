@@ -10,7 +10,7 @@ export default function PageContainer() {
             backgroundColor={theme.palette.primary.main}
             color={theme.palette.primary.contrastText}
             fontFamily={theme.typography.fontFamily}
-            height='100vh'
+            minHeight='100vh'
         >
             <Outlet />
         </Box>
