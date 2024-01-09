@@ -1,8 +1,10 @@
 import React from 'react';
 import Chart from 'react-google-charts';
 import { Box } from '@mui/material';
+import { useTheme } from '@emotion/react';
 
 export default function OverviewChart({ groupList }) {
+    const theme = useTheme();
     
     const formatGroups = () => {
         const formatedGroups = [];
@@ -22,7 +24,22 @@ export default function OverviewChart({ groupList }) {
     const options = {
         pieHole: 0.5,
         chartArea: {width: '100%'},
-        legend: {position: 'bottom'},
+        backgroundColor: 'transparent',
+        pieSliceBorderColor: 'transparent',
+        tooltip: {
+            textStyle: {
+                color: theme.palette.primary.dark,
+                fontName: theme.typography.fontFamily,
+                bold: true
+            },
+        },
+        legend: {
+            textStyle: {
+                color: theme.palette.primary.contrastText,
+                fontName: theme.typography.fontFamily
+            },
+            position: 'bottom'
+        },
     };
 
     return (
