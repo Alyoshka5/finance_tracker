@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import { useTheme } from '@mui/material';
+import NavBar from './NavBar';
 
 export default function PageContainer() {
     const theme = useTheme();
@@ -12,6 +13,7 @@ export default function PageContainer() {
             fontFamily={theme.typography.fontFamily}
             minHeight='100vh'
         >
+            <NavBar />
             <Outlet />
         </Box>
     );
