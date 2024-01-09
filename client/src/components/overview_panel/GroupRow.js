@@ -7,7 +7,7 @@ export default function GroupRow({ groupTitle, amount }) {
             justifyContent='space-between'
         >
             <Typography variant='body'>{groupTitle}</Typography>
-            <Typography variant='body'>${amount}</Typography>
+            <Typography variant='body'>$ {amount.toFixed(2)}</Typography>
         </Box>
     )
 }
