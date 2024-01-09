@@ -8,13 +8,13 @@ export default function SiteHeader() {
     const [hovering, setHovering] = useState(false);
 
     return (
-        <Box style={{display: 'flex', gap: '1rem', alignItems: 'center', cursor: hovering ? 'pointer' : ''}}
+        <Box style={{display: 'flex', gap: '0.6rem', alignItems: 'center', cursor: hovering ? 'pointer' : ''}}
             onClick={() => navigate('/')}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
         >
-            <img src={logo} style={{width: '2.5rem'}} />
-            <Typography variant='h3' style={{fontSize: '1.8rem'}}>LUTE</Typography>
+            <img src={logo} style={{width: '2.2rem'}} />
+            <Typography variant='h3' style={{fontSize: '1.6rem'}}>LUTE</Typography>
         </Box>
     );
 }
