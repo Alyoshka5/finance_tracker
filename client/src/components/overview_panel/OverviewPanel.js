@@ -1,9 +1,9 @@
 import { Box, Button, Typography } from "@mui/material";
 import useTransactions from "../../hooks/useTransactions";
 import { useEffect, useState } from "react";
-import GroupRow from "./GroupRow";
 import OverviewChart from "./OverviewChart";
 import TypeSelectionButtons from "./TypeSelectionButtons";
+import GroupList from "./GroupList";
 
 export default function OverviewPanel() {
     const { transactions } = useTransactions();
@@ -72,9 +72,7 @@ export default function OverviewPanel() {
                 setTransactionType={setTransactionType} 
             />
 
-            {Object.keys(groupList).map(key => {
-                return (<GroupRow key={key} groupTitle={key} amount={groupList[key]} />)
-            })}
+            <GroupList groupList={groupList} />
         </Box>
     )
 }
