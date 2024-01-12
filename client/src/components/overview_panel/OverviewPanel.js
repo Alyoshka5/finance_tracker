@@ -61,7 +61,8 @@ export default function OverviewPanel() {
     return (
         <Box sx={{
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
+            padding: '1rem 1.2rem'
         }}>
             <Typography variant='h5' style={{zIndex: '1'}}>Overview</Typography>
 

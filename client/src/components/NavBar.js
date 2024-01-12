@@ -18,6 +18,7 @@ export default function NavBar() {
         <Box
             display='flex'
             justifyContent='space-between'
+            padding='0.8rem 1.2rem'
         >
             <SiteHeader />
             {
