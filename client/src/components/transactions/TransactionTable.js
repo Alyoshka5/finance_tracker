@@ -17,19 +17,19 @@ export default function TransactionTable() {
 			<Table sx={{ minWidth: 650 }}>
 				<TableHead>
 					<TableRow sx={{}}>
-						<TableCell sx={{...tableCellStyles}}>
+						<TableCell sx={{...tableCellStyles, width: '15%'}}>
 							Amount
 						</TableCell>
-						<TableCell sx={{...tableCellStyles}}>
+						<TableCell sx={{...tableCellStyles, width: '15%'}}>
 							Date
 						</TableCell>
-						<TableCell sx={{...tableCellStyles}}>
+						<TableCell sx={{...tableCellStyles, width: '15%'}}>
 							Type
 						</TableCell>
-						<TableCell sx={{...tableCellStyles}}>
+						<TableCell sx={{...tableCellStyles, width: '15%'}}>
 							Category
 						</TableCell>
-						<TableCell sx={{...tableCellStyles}}>
+						<TableCell sx={{...tableCellStyles, width: '40%'}}>
 							Description
 						</TableCell>
 					</TableRow>
