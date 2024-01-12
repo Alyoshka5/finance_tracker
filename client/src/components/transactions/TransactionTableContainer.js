@@ -20,7 +20,6 @@ export default function TransactionTableContainer() {
                 justifyContent='space-between'
             >
                 <Typography variant='h4'>Transactions</Typography>
-            <TransactionTable />
                 <Button variant='outlined' onClick={() => openModal(<TransactionForm />)}>Add Transaction</Button>
             </Box>
             <TransactionTable />
