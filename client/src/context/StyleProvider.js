@@ -14,7 +14,18 @@ const theme = createTheme({
             'Montserrat',
             'sans-serif'
         ].join(',')
-    }
+    },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    borderColor: '#B2D5EE',
+                    color: '#B2D5EE',
+                    textTransform: 'none',
+                },
+            },
+        },
+      },
 });
 
 export default function StyleProvider({ children }) {
