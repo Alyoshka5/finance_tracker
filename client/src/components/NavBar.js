@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, useTheme } from "@mui/material";
 import SiteHeader from './SiteHeader';
 import { useNavigate } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
@@ -8,6 +8,7 @@ export default function NavBar() {
     const navigate = useNavigate();
     const logout = useLogout();
     const { auth } = useAuth();
+    const theme = useTheme();
 
     const handleLogout = async () => {
         await logout();
@@ -19,6 +20,7 @@ export default function NavBar() {
             display='flex'
             justifyContent='space-between'
             padding='0.8rem 1.2rem'
+            borderBottom={`1px solid ${theme.palette.primary.contrastDark}`}
         >
             <SiteHeader />
             {
