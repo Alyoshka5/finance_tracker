@@ -6,6 +6,8 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useTransactions from "../../hooks/useTransactions";
 import useModal from "../../hooks/useModal";
 import useFormatDate from "../../hooks/useFormatDate";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function TransactionDetailModal({ transaction }) {
     const openModal = useOpenModal();
@@ -106,9 +108,26 @@ export default function TransactionDetailModal({ transaction }) {
                                 </Box>
                             </Box>
                         :
-                            <Box>
-                                <Button onClick={() => openModal(<TransactionForm targetTransaction={transaction} />)}>Edit</Button>
-                                <Button onClick={() => setDeleteClicked(true)}>Delete</Button>
+                            <Box
+                                display='flex'
+                                gap='0.5rem'
+                            >
+                                <EditIcon
+                                    onClick={() => openModal(<TransactionForm targetTransaction={transaction} />)}
+                                    sx={{
+                                        '&:hover': {cursor: 'pointer', backgroundColor: theme.palette.primary.lighterMain},
+                                        padding: '0.5rem',
+                                        borderRadius: '0.5rem'
+                                    }}
+                                />
+                                <DeleteIcon
+                                    onClick={() => setDeleteClicked(true)}
+                                    sx={{
+                                        '&:hover': {cursor: 'pointer', backgroundColor: theme.palette.primary.lighterMain},
+                                        padding: '0.5rem',
+                                        borderRadius: '0.5rem'
+                                    }}
+                                />
                             </Box>
                             
                     }
