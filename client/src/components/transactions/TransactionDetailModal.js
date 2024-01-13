@@ -100,11 +100,30 @@ export default function TransactionDetailModal({ transaction }) {
                 <Grid item xs={12}>
                     {
                         deleteClicked ?
-                            <Box>
-                                <Typography variant='body' fontWeight='medium'>Are you sure you want to delete this transaction?</Typography>
-                                <Box>
-                                    <Button onClick={handleDelete}>Confirm</Button>
-                                    <Button onClick={() => setDeleteClicked(false)}>Cancel</Button>
+                            <Box
+                                display='flex'
+                                flexDirection='column'
+                                gap='0.5rem'
+                            >
+                                <Typography variant='body' fontWeight='bold'>Are you sure you want to delete this transaction?</Typography>
+                                <Box
+                                    display='flex'
+                                    gap='0.5rem'
+                                >
+                                    <Button
+                                        variant='outlined'
+                                        onClick={handleDelete}
+                                        sx={{'&:hover': {borderColor: theme.palette.primary.light, backgroundColor: theme.palette.primary.lighterMain}}}
+                                    >
+                                        Confirm
+                                    </Button>
+                                    <Button
+                                        variant='outlined'
+                                        onClick={() => setDeleteClicked(false)}
+                                        sx={{'&:hover': {borderColor: theme.palette.primary.light, backgroundColor: theme.palette.primary.lighterMain}}}
+                                    >
+                                        Cancel
+                                    </Button>
                                 </Box>
                             </Box>
                         :
