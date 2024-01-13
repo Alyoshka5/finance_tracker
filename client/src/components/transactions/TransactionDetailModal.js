@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Button } from "@mui/material";
+import { Box, Grid, Typography, Button, useTheme } from "@mui/material";
 import useOpenModal from '../../hooks/useOpenModal';
 import TransactionForm from './TransactionForm';
 import { useEffect, useState } from "react";
@@ -7,14 +7,6 @@ import useTransactions from "../../hooks/useTransactions";
 import useModal from "../../hooks/useModal";
 import useFormatDate from "../../hooks/useFormatDate";
 
-const containerStyles = {
-    width: '50%',
-    backgroundColor: '#fff',
-    padding: '5rem 3rem',
-    borderRadius: '1rem',
-    boxShadow: '0 0 0.5rem #999'
-}
-
 export default function TransactionDetailModal({ transaction }) {
     const openModal = useOpenModal();
     const [deleteClicked, setDeleteClicked] = useState(false);
@@ -22,6 +14,15 @@ export default function TransactionDetailModal({ transaction }) {
     const { setTransactions } = useTransactions();
     const { modalOpen, setModalOpen } = useModal();
     const formatDate = useFormatDate();
+    const theme = useTheme();
+
+    const containerStyles = {
+        width: '50%',
+        backgroundColor: theme.palette.primary.main,
+        padding: '5rem 3rem',
+        borderRadius: '1rem',
+        border: `1px solid ${theme.palette.primary.light}`
+    }
 
     useEffect(() => {
         if (!modalOpen)
