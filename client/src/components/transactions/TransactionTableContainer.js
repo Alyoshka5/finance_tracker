@@ -2,6 +2,7 @@ import { Box, Button, Typography, useTheme } from "@mui/material";
 import TransactionTable from "./TransactionTable";
 import TransactionForm from "./TransactionForm";
 import useOpenModal from "../../hooks/useOpenModal";
+import AddIcon from '@mui/icons-material/Add';
 
 export default function TransactionTableContainer() {
     const openModal = useOpenModal();
@@ -24,6 +25,7 @@ export default function TransactionTableContainer() {
                     variant='outlined'
                     onClick={() => openModal(<TransactionForm />)}
                     sx={{'&:hover': {borderColor: theme.palette.primary.light, backgroundColor: theme.palette.primary.lighterMain}}}
+                    startIcon={<AddIcon />}
                 >
                     Add Transaction
                 </Button>
