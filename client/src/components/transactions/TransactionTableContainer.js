@@ -20,7 +20,13 @@ export default function TransactionTableContainer() {
                 justifyContent='space-between'
             >
                 <Typography variant='h4'>Transactions</Typography>
-                <Button variant='outlined' onClick={() => openModal(<TransactionForm />)}>Add Transaction</Button>
+                <Button
+                    variant='outlined'
+                    onClick={() => openModal(<TransactionForm />)}
+                    sx={{'&:hover': {borderColor: theme.palette.primary.light, backgroundColor: theme.palette.primary.lighterMain}}}
+                >
+                    Add Transaction
+                </Button>
             </Box>
             <TransactionTable />
         </Box>
