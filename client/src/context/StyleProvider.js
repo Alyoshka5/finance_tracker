@@ -64,6 +64,13 @@ const theme = createTheme({
                     },
                 }
             }
+        },
+        MuiIconButton: {
+            styleOverrides: {
+                root: {
+                    color: '#B2D5EEa0'
+                }
+            }
         }
     },
     
