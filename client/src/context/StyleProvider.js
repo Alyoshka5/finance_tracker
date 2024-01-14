@@ -25,9 +25,48 @@ const theme = createTheme({
                     color: '#B2D5EE',
                     textTransform: 'none',
                 },
+                contained: {
+                    backgroundColor: '#B2D5EE',
+                    color: '#001C29',
+                    fontWeight: 'bold',
+                    '&:hover': {
+                        backgroundColor: '#9dc9e9',
+                    }
+                }
             },
         },
-      },
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                            borderColor: '#B2D5EE80',
+                        },
+                        '&:hover fieldset': {
+                            borderColor: '#B2D5EEc0',
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderColor: '#B2D5EEc0',
+                        },
+                        '& input': {
+                            color: '#B2D5EE',
+                        },
+                      },
+                }
+            }
+        },
+        MuiFormLabel: {
+            styleOverrides: {
+                root: {
+                    color: '#B2D5EEa0',
+                    '&.Mui-focused': {
+                        color: '#B2D5EE',
+                    },
+                }
+            }
+        }
+    },
+    
 });
 
 export default function StyleProvider({ children }) {
