@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { TextField, Box, Grid, Button, Typography } from '@mui/material';
+import { TextField, Box, Grid, Button, Typography, useTheme } from '@mui/material';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useTransactions from '../../hooks/useTransactions';
 import useModal from '../../hooks/useModal';
@@ -30,6 +30,7 @@ export default function TransactionForm({ targetTransaction }) {
     const {modalOpen, setModalOpen} = useModal();
     const sortTransactions = useSortTransactions();
     const openModal = useOpenModal();
+    const theme = useTheme();
 
     const [transaction, setTransaction] = useState(targetTransaction || emptyTransaction);
     
@@ -82,10 +83,10 @@ export default function TransactionForm({ targetTransaction }) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 width: '50%',
-                backgroundColor: '#fff',
+                backgroundColor: theme.palette.primary.main,
                 padding: '5rem 3rem',
                 borderRadius: '1rem',
-                boxShadow: '0 0 0.5rem #999'
+                border: `1px solid ${theme.palette.primary.light}a0`
             }}
         >
             <Typography component='h1' variant='h4'>
@@ -183,6 +184,9 @@ export default function TransactionForm({ targetTransaction }) {
                     <Button
                         type='submit'
                         variant='contained'
+                        sx={{
+                            padding: '0.4rem 2rem',
+                        }}
                     >
                         Save
                     </Button>
