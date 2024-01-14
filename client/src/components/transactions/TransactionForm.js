@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { TextField, Box, Grid, Button, Typography, useTheme } from '@mui/material';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useTransactions from '../../hooks/useTransactions';
@@ -6,14 +6,9 @@ import useModal from '../../hooks/useModal';
 import useSortTransactions from '../../hooks/useSortTransactions';
 import useOpenModal from '../../hooks/useOpenModal';
 import TransactionDetailModal from './TransactionDetailModal';
-
-const getCurrentDateFormatted = () => {
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    const formatter = new Intl.DateTimeFormat('en-US', options);
-    
-    const [month, day, year] = formatter.formatToParts(new Date()).map(({ value }) => value).filter(value => value !== '/');
-    return `${year}-${month}-${day}`;
-}
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 const emptyTransaction = {
     amount: '',
@@ -33,6 +28,7 @@ export default function TransactionForm({ targetTransaction }) {
     const theme = useTheme();
 
     const [transaction, setTransaction] = useState(targetTransaction || emptyTransaction);
+    const prevDate = useRef(transaction.date);
     
 
     useEffect(() => {
@@ -44,7 +40,9 @@ export default function TransactionForm({ targetTransaction }) {
         e.preventDefault();
 
         if (!transaction.date)
-            transaction.date = getCurrentDateFormatted();
+            transaction.date = new Date();
+        else if (transaction.date.toString() === 'Invalid Date')
+            transaction.date = prevDate.current || new Date();
 
         try {
             let response;
@@ -112,18 +110,22 @@ export default function TransactionForm({ targetTransaction }) {
                         })}
                     />
                 </Grid>
-                
+
                 <Grid item xs={5}>
-                    <TextField
-                        required
-                        fullWidth
-                        label='Date'
-                        type='date'
-                        value={transaction.date.split('T')[0] || getCurrentDateFormatted()}
-                        onChange={(e) => setTransaction(prev => {
-                            return {...prev, date: e.target.value.split('T')[0]}
-                        })}
-                    />
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DatePicker
+                            required
+                            sx={{width: '100%'}}
+                            label='Date'
+                            type='date'
+                            defaultValue={new Date()}
+                            value={transaction.date ? new Date(transaction.date) : new Date()}
+                            onChange={(date) => setTransaction(prev => {
+                                return {...prev, date}
+                            })}
+                        />
+                    </LocalizationProvider>
+                        
                 </Grid>
                 
                 <Grid item xs={5}>
