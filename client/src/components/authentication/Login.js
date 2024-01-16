@@ -56,7 +56,6 @@ export default function Login() {
 
     return (
         <Container component='main' maxWidth='xs'>
-            <Link to='/'>Transactions</Link>
             <Box component='form' noValidate
                 onSubmit={handleSubmit}
                 sx={{
