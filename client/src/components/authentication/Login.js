@@ -55,14 +55,21 @@ export default function Login() {
     }
 
     return (
-        <Container component='main' maxWidth='xs'>
+        <Container component='main' maxWidth='xs'
+            sx={{
+                height: '100%',
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center'
+            }}
+        >
             <Box component='form' noValidate
                 onSubmit={handleSubmit}
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'center'
                 }}
             >
                 <Typography component='h1' variant='h4'>
