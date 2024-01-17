@@ -26,7 +26,14 @@ export default function NavBar() {
             <SiteHeader />
             {
                 auth.userId ? 
-                    <Button sx={{fontSize: '0.9rem', marginRight: '1rem'}} onClick={handleLogout}>Logout</Button>
+                    <Button
+                        sx={{
+                            fontSize: '0.9rem', padding: '0.25rem 0.5rem', marginRight: '1rem'
+                        }} 
+                        onClick={handleLogout}
+                    >
+                        Logout
+                    </Button>
                     :
                     ''
             }
