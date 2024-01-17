@@ -12,6 +12,8 @@ export default function PageContainer() {
             color={theme.palette.primary.contrastText}
             fontFamily={theme.typography.fontFamily}
             minHeight='100vh'
+            display='flex'
+            flexDirection='column'
         >
             <NavBar />
             <Outlet />
