@@ -20,7 +20,8 @@ export default function NavBar() {
             display='flex'
             justifyContent='space-between'
             padding='0.8rem 1.2rem'
-            borderBottom={`1px solid ${theme.palette.primary.contrastDark}`}
+            position={auth.userId ? '' : 'absolute'}
+            borderBottom={auth.userId ? `1px solid ${theme.palette.primary.contrastDark}` : ''}
         >
             <SiteHeader />
             {
