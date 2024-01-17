@@ -123,10 +123,20 @@ export default function Login() {
                             label='Remember me'
                         />
                     </Grid>
-                    <Grid item>
+                    <Grid item xs={12}
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center'
+                        }}
+                    >
                         <Button
                             type='submit'
                             variant='contained'
+                            sx={{
+                                width: '70%',
+                                height: '2.5rem',
+                                fontSize: '0.9rem'
+                            }}
                         >
                             Login
                         </Button>

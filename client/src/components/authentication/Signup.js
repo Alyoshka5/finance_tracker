@@ -80,7 +80,6 @@ export default function Signup() {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'center'
                 }}
             >
                 <Typography component='h1' variant='h4'>
@@ -152,22 +151,33 @@ export default function Signup() {
                             label='Remember me'
                         />
                     </Grid>
-                    <Grid item>
+                    <Grid item xs={12}
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center'
+                        }}
+                    >
                         <Button
                             type='submit'
                             variant='contained'
+                            sx={{
+                                width: '70%',
+                                height: '2.5rem',
+                                fontSize: '0.9rem'
+                            }}
                         >
                             Create Account
                         </Button>
                     </Grid>
-                </Grid>
-                <Grid item xs={12} sx={{alignSelf: 'start'}}>
-                    <Link to='/login'
-                        style={{
-                            textDecoration: 'none',
-                            color: theme.palette.primary.contrastText
-                        }}
-                    >Log In</Link>
+                    <Grid item xs={12}>
+                        <Link to='/login'
+                            style={{
+                                textDecoration: 'none',
+                                color: theme.palette.primary.contrastText,
+                                
+                            }}
+                        >Log In</Link>
+                    </Grid>
                 </Grid>
             </Box>
         </Container>
