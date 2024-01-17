@@ -147,7 +147,6 @@ export default function Signup() {
                         <Button
                             type='submit'
                             variant='contained'
-                            disabled={!(validEmail && validPwd && validMatch)}
                         >
                             Create Account
                         </Button>
