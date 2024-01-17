@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { TextField, Box, Grid, Container, Button, Typography, Checkbox, FormControlLabel } from '@mui/material';
+import { TextField, Box, Grid, Container, Button, Typography, Checkbox, FormControlLabel, useTheme } from '@mui/material';
 import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -11,6 +11,7 @@ const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}
 export default function Login() {
     useDocumentTitle('Log In');
     const { setAuth, persist, setPersist } = useAuth();
+    const theme = useTheme();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -131,7 +132,12 @@ export default function Login() {
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
-                        <Link to='/signup'>Create Account</Link>
+                        <Link to='/signup'
+                            style={{
+                                textDecoration: 'none',
+                                color: theme.palette.primary.contrastText
+                            }}
+                        >Create Account</Link>
                     </Grid>
                 </Grid>
             </Box>

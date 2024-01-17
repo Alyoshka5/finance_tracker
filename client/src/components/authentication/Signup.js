@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { TextField, Box, Grid, Container, Button, Typography, FormControlLabel, Checkbox } from '@mui/material';
+import { TextField, Box, Grid, Container, Button, Typography, FormControlLabel, Checkbox, useTheme } from '@mui/material';
 import axios from 'axios';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
@@ -11,6 +11,7 @@ const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 export default function Signup() {
     useDocumentTitle('Create Account');
     const { setAuth, persist, setPersist } = useAuth();
+    const theme = useTheme();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -161,7 +162,12 @@ export default function Signup() {
                     </Grid>
                 </Grid>
                 <Grid item xs={12} sx={{alignSelf: 'start'}}>
-                    <Link to='/login'>Log In</Link>
+                    <Link to='/login'
+                        style={{
+                            textDecoration: 'none',
+                            color: theme.palette.primary.contrastText
+                        }}
+                    >Log In</Link>
                 </Grid>
             </Box>
         </Container>
