@@ -15,6 +15,7 @@ export default function ModalContainer() {
                     position: 'absolute',
                     top: '0',
                     left: '0',
+                    zIndex: '10',
                     justifyContent: 'center',
                     alignItems: 'center',
                     backgroundColor: '#ffffff00',
