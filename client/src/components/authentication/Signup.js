@@ -146,6 +146,9 @@ export default function Signup() {
                             <Checkbox 
                             checked={persist}
                             onClick={() => setPersist(prevPersist => !prevPersist)}
+                            style={{
+                                color: `${theme.palette.primary.light}c0`
+                            }}
                             />
                         }    
                             label='Remember me'

@@ -118,6 +118,9 @@ export default function Login() {
                             <Checkbox 
                             checked={persist}
                             onClick={() => setPersist(prevPersist => !prevPersist)}
+                            style={{
+                                color: `${theme.palette.primary.light}c0`
+                            }}
                             />
                         }    
                             label='Remember me'
