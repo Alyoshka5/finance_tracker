@@ -51,6 +51,9 @@ const theme = createTheme({
                         '& input': {
                             color: '#B2D5EE',
                         },
+                        '& textarea': {
+                            color: '#B2D5EE',
+                        },
                       },
                 }
             }
