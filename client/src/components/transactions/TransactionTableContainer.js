@@ -15,6 +15,8 @@ export default function TransactionTableContainer() {
             gap='0.5rem'
             padding='1rem 1.2rem'
             borderRight={`1px solid ${theme.palette.primary.contrastDark}`}
+            height='100%'
+            boxSizing='border-box'
         >
             <Box
                 display='flex'

@@ -34,6 +34,7 @@ export default function TransactionPage() {
             display='flex'
             width='100%'
             boxSizing='border-box'
+            flex='1'
         >
             <Box
                 width='78%'
