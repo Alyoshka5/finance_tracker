@@ -74,9 +74,34 @@ const theme = createTheme({
                     color: '#B2D5EEa0'
                 }
             }
+        },
+        MuiSelect: {
+            styleOverrides: {
+                root: {
+                    color: '#B2D5EE',
+                    '& .MuiOutlinedInput-notchedOutline': {
+                        borderColor: '#B2D5EE80',
+                    },
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: '#B2D5EEc0',
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: '#B2D5EEc0',
+                    },
+                },
+                icon: {
+                    fill: '#B2D5EEa0',
+                },
+            }
+        },
+        MuiMenuItem: {
+            styleOverrides: {
+                root: {
+                    color: '#001C29'
+                }
+            }
         }
     },
-    
 });
 
 export default function StyleProvider({ children }) {
