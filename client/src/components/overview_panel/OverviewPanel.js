@@ -66,14 +66,29 @@ export default function OverviewPanel() {
         }}>
             <Typography variant='h5' style={{zIndex: '1'}}>Overview</Typography>
 
-            <OverviewChart groupList={groupList} />
+            {
+                transactions.length === 0 ?
+                    <Typography
+                        sx={{
+                            padding: '0.8rem 0'
+                        }}
+                        variant='body1'
+                    >
+                        No transactions.
+                    </Typography>
+                :
+                    <Box>
+                        <OverviewChart groupList={groupList} />
+            
+                        <TypeSelectionButtons 
+                            transactionType={transactionType}
+                            setTransactionType={setTransactionType} 
+                        />
+            
+                        <GroupList groupList={groupList} />
+                    </Box>
+            }
 
-            <TypeSelectionButtons 
-                transactionType={transactionType}
-                setTransactionType={setTransactionType} 
-            />
-
-            <GroupList groupList={groupList} />
         </Box>
     )
 }

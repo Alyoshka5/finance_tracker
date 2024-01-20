@@ -1,4 +1,4 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useTheme } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useTheme } from '@mui/material';
 import useTransactions from '../../hooks/useTransactions';
 import TransactionEntry from './TransactionEntry';
 
@@ -34,12 +34,30 @@ export default function TransactionTable() {
 						</TableCell>
 					</TableRow>
 				</TableHead>
-				<TableBody>
-				{transactions.map((transaction) => (
-					<TransactionEntry key={transaction._id} transaction={transaction} />
-				))}
-				</TableBody>
+				{
+					transactions.length === 0 ?
+						''
+					:
+						<TableBody>
+						{transactions.map((transaction) => (
+							<TransactionEntry key={transaction._id} transaction={transaction} />
+						))}
+						</TableBody>
+				}
 			</Table>
+			{
+				transactions.length === 0 ?
+					<Typography
+						sx={{
+							padding: '0.8rem 0.5rem'
+						}}
+						variant='body1'
+					>
+						No transactions to display.
+					</Typography>
+				:
+					''
+			}
         </TableContainer>
     );
 }
