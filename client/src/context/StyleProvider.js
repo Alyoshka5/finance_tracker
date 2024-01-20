@@ -1,15 +1,17 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+const primaryColors = {
+    main: '#002536',
+    lighterMain: '#002B3F',
+    light: '#B2D5EE',
+    dark: '#0E2532',
+    contrastDark: '#001C29',
+    contrastText: '#B2D5EE'
+}
+
 const theme = createTheme({
     palette: {
-        primary: {
-            main: '#002536',
-            lighterMain: '#002B3F',
-            light: '#B2D5EE',
-            dark: '#0E2532',
-            contrastDark: '#001C29',
-            contrastText: '#B2D5EE'
-        },
+        primary: primaryColors,
     },
     typography: {
         fontFamily: [
@@ -21,13 +23,13 @@ const theme = createTheme({
         MuiButton: {
             styleOverrides: {
                 root: {
-                    borderColor: '#B2D5EE',
-                    color: '#B2D5EE',
+                    borderColor: primaryColors.light,
+                    color: primaryColors.contrastText,
                     textTransform: 'none',
                 },
                 contained: {
-                    backgroundColor: '#B2D5EE',
-                    color: '#001C29',
+                    backgroundColor: primaryColors.light,
+                    color: primaryColors.contrastDark,
                     fontWeight: 'bold',
                     '&:hover': {
                         backgroundColor: '#9dc9e9',
@@ -40,19 +42,19 @@ const theme = createTheme({
                 root: {
                     '& .MuiOutlinedInput-root': {
                         '& fieldset': {
-                            borderColor: '#B2D5EE80',
+                            borderColor: `${primaryColors.light}80`,
                         },
                         '&:hover fieldset': {
-                            borderColor: '#B2D5EEc0',
+                            borderColor: `${primaryColors.light}c0`,
                         },
                         '&.Mui-focused fieldset': {
-                            borderColor: '#B2D5EEc0',
+                            borderColor: `${primaryColors.light}c0`,
                         },
                         '& input': {
-                            color: '#B2D5EE',
+                            color: primaryColors.contrastText,
                         },
                         '& textarea': {
-                            color: '#B2D5EE',
+                            color: primaryColors.contrastText,
                         },
                       },
                 }
@@ -61,9 +63,9 @@ const theme = createTheme({
         MuiFormLabel: {
             styleOverrides: {
                 root: {
-                    color: '#B2D5EEa0',
+                    color: `${primaryColors.contrastText}a0`,
                     '&.Mui-focused': {
-                        color: '#B2D5EE',
+                        color: primaryColors.contrastText,
                     },
                 }
             }
@@ -71,33 +73,33 @@ const theme = createTheme({
         MuiIconButton: {
             styleOverrides: {
                 root: {
-                    color: '#B2D5EEa0'
+                    color: `${primaryColors.light}a0`
                 }
             }
         },
         MuiSelect: {
             styleOverrides: {
                 root: {
-                    color: '#B2D5EE',
+                    color: primaryColors.contrastText,
                     '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: '#B2D5EE80',
+                        borderColor: `${primaryColors.light}80`,
                     },
                     '&:hover .MuiOutlinedInput-notchedOutline': {
-                        borderColor: '#B2D5EEc0',
+                        borderColor: `${primaryColors.light}c0`,
                     },
                     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                        borderColor: '#B2D5EEc0',
+                        borderColor: `${primaryColors.light}c0`,
                     },
                 },
                 icon: {
-                    fill: '#B2D5EEa0',
+                    fill: `${primaryColors.light}a0`,
                 },
             }
         },
         MuiMenuItem: {
             styleOverrides: {
                 root: {
-                    color: '#001C29'
+                    color: primaryColors.contrastDark
                 }
             }
         }
