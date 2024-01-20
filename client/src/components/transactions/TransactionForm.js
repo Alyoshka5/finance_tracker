@@ -1,24 +1,19 @@
-import { useState, useEffect } from 'react';
-import { TextField, Box, Grid, Button, Typography } from '@mui/material';
+import { useState, useEffect, useRef } from 'react';
+import { TextField, Box, Grid, Button, Typography, useTheme, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useTransactions from '../../hooks/useTransactions';
 import useModal from '../../hooks/useModal';
 import useSortTransactions from '../../hooks/useSortTransactions';
 import useOpenModal from '../../hooks/useOpenModal';
 import TransactionDetailModal from './TransactionDetailModal';
-
-const getCurrentDateFormatted = () => {
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    const formatter = new Intl.DateTimeFormat('en-US', options);
-    
-    const [month, day, year] = formatter.formatToParts(new Date()).map(({ value }) => value).filter(value => value !== '/');
-    return `${year}-${month}-${day}`;
-}
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 const emptyTransaction = {
     amount: '',
     date: '',
-    type: '',
+    type: 'Expense',
     category: '',
     description: '',
     details: ''
@@ -30,8 +25,10 @@ export default function TransactionForm({ targetTransaction }) {
     const {modalOpen, setModalOpen} = useModal();
     const sortTransactions = useSortTransactions();
     const openModal = useOpenModal();
+    const theme = useTheme();
 
     const [transaction, setTransaction] = useState(targetTransaction || emptyTransaction);
+    const prevDate = useRef(transaction.date);
     
 
     useEffect(() => {
@@ -43,7 +40,9 @@ export default function TransactionForm({ targetTransaction }) {
         e.preventDefault();
 
         if (!transaction.date)
-            transaction.date = getCurrentDateFormatted();
+            transaction.date = new Date();
+        else if (transaction.date.toString() === 'Invalid Date')
+            transaction.date = prevDate.current || new Date();
 
         try {
             let response;
@@ -62,7 +61,7 @@ export default function TransactionForm({ targetTransaction }) {
             setTransaction({
                 amount: '',
                 date: '',
-                type: '',
+                type: 'Expense',
                 category: '',
                 description: '',
                 details: ''
@@ -82,10 +81,10 @@ export default function TransactionForm({ targetTransaction }) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 width: '50%',
-                backgroundColor: '#fff',
+                backgroundColor: theme.palette.primary.main,
                 padding: '5rem 3rem',
                 borderRadius: '1rem',
-                boxShadow: '0 0 0.5rem #999'
+                border: `1px solid ${theme.palette.primary.light}a0`
             }}
         >
             <Typography component='h1' variant='h4'>
@@ -111,31 +110,43 @@ export default function TransactionForm({ targetTransaction }) {
                         })}
                     />
                 </Grid>
-                
+
                 <Grid item xs={5}>
-                    <TextField
-                        required
-                        fullWidth
-                        label='Date'
-                        type='date'
-                        value={transaction.date.split('T')[0] || getCurrentDateFormatted()}
-                        onChange={(e) => setTransaction(prev => {
-                            return {...prev, date: e.target.value.split('T')[0]}
-                        })}
-                    />
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DatePicker
+                            required
+                            sx={{width: '100%'}}
+                            label='Date'
+                            type='date'
+                            defaultValue={new Date()}
+                            value={transaction.date ? new Date(transaction.date) : new Date()}
+                            onChange={(date) => setTransaction(prev => {
+                                return {...prev, date}
+                            })}
+                        />
+                    </LocalizationProvider>
+                        
                 </Grid>
                 
                 <Grid item xs={5}>
-                    <TextField
-                        required
-                        fullWidth
-                        label='Type'
-                        type='text'
-                        value={transaction.type}
-                        onChange={(e) => setTransaction(prev => {
-                            return {...prev, type: e.target.value}
-                        })}
-                    />
+                    <FormControl
+                        sx={{
+                            width: '100%',
+                        }}
+                    >
+                        <InputLabel>Type</InputLabel>
+                        <Select
+                            required
+                            label='Typ' // must be a letter shorter for proper spacing
+                            value={transaction.type}
+                            onChange={(e) => setTransaction(prev => {
+                                return {...prev, type: e.target.value}
+                            })}
+                        >
+                            <MenuItem value='Expense'>Expense</MenuItem>
+                            <MenuItem value='Income'>Income</MenuItem>
+                        </Select>
+                    </FormControl>
                 </Grid>
                 
                 <Grid item xs={5}>
@@ -183,6 +194,9 @@ export default function TransactionForm({ targetTransaction }) {
                     <Button
                         type='submit'
                         variant='contained'
+                        sx={{
+                            padding: '0.4rem 2rem',
+                        }}
                     >
                         Save
                     </Button>

@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Button } from "@mui/material";
+import { Box, Grid, Typography, Button, useTheme } from "@mui/material";
 import useOpenModal from '../../hooks/useOpenModal';
 import TransactionForm from './TransactionForm';
 import { useEffect, useState } from "react";
@@ -6,14 +6,8 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useTransactions from "../../hooks/useTransactions";
 import useModal from "../../hooks/useModal";
 import useFormatDate from "../../hooks/useFormatDate";
-
-const containerStyles = {
-    width: '50%',
-    backgroundColor: '#fff',
-    padding: '5rem 3rem',
-    borderRadius: '1rem',
-    boxShadow: '0 0 0.5rem #999'
-}
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function TransactionDetailModal({ transaction }) {
     const openModal = useOpenModal();
@@ -22,6 +16,15 @@ export default function TransactionDetailModal({ transaction }) {
     const { setTransactions } = useTransactions();
     const { modalOpen, setModalOpen } = useModal();
     const formatDate = useFormatDate();
+    const theme = useTheme();
+
+    const containerStyles = {
+        width: '50%',
+        backgroundColor: theme.palette.primary.main,
+        padding: '5rem 3rem',
+        borderRadius: '1rem',
+        border: `1px solid ${theme.palette.primary.light}`
+    }
 
     useEffect(() => {
         if (!modalOpen)
@@ -97,17 +100,53 @@ export default function TransactionDetailModal({ transaction }) {
                 <Grid item xs={12}>
                     {
                         deleteClicked ?
-                            <Box>
-                                <Typography variant='body' fontWeight='medium'>Are you sure you want to delete this transaction?</Typography>
-                                <Box>
-                                    <Button onClick={handleDelete}>Confirm</Button>
-                                    <Button onClick={() => setDeleteClicked(false)}>Cancel</Button>
+                            <Box
+                                display='flex'
+                                flexDirection='column'
+                                gap='0.5rem'
+                            >
+                                <Typography variant='body' fontWeight='bold'>Are you sure you want to delete this transaction?</Typography>
+                                <Box
+                                    display='flex'
+                                    gap='0.5rem'
+                                >
+                                    <Button
+                                        variant='outlined'
+                                        onClick={handleDelete}
+                                        sx={{'&:hover': {borderColor: theme.palette.primary.light, backgroundColor: theme.palette.primary.lighterMain}}}
+                                    >
+                                        Confirm
+                                    </Button>
+                                    <Button
+                                        variant='outlined'
+                                        onClick={() => setDeleteClicked(false)}
+                                        sx={{'&:hover': {borderColor: theme.palette.primary.light, backgroundColor: theme.palette.primary.lighterMain}}}
+                                    >
+                                        Cancel
+                                    </Button>
                                 </Box>
                             </Box>
                         :
-                            <Box>
-                                <Button onClick={() => openModal(<TransactionForm targetTransaction={transaction} />)}>Edit</Button>
-                                <Button onClick={() => setDeleteClicked(true)}>Delete</Button>
+                            <Box
+                                display='flex'
+                                gap='0.5rem'
+                            >
+                                <EditIcon
+                                    onClick={() => openModal(<TransactionForm targetTransaction={transaction} />)}
+                                    sx={{
+                                        '&:hover': {cursor: 'pointer', backgroundColor: theme.palette.primary.lighterMain},
+                                        padding: '0.5rem',
+                                        borderRadius: '0.5rem'
+                                    }}
+                                />
+                                <DeleteIcon
+                                    onClick={() => setDeleteClicked(true)}
+                                    sx={{
+                                        '&:hover': {cursor: 'pointer', backgroundColor: theme.palette.primary.lighterMain},
+                                        padding: '0.5rem',
+                                        borderRadius: '0.5rem'
+                                    }}
+                                />
                             </Box>
                             
                     }

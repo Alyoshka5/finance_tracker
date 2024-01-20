@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { TextField, Box, Grid, Container, Button, Typography, FormControlLabel, Checkbox } from '@mui/material';
+import { TextField, Box, Grid, Container, Button, Typography, FormControlLabel, Checkbox, useTheme } from '@mui/material';
 import axios from 'axios';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
@@ -11,6 +11,7 @@ const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 export default function Signup() {
     useDocumentTitle('Create Account');
     const { setAuth, persist, setPersist } = useAuth();
+    const theme = useTheme();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -64,14 +65,21 @@ export default function Signup() {
     }
 
     return (
-        <Container component='main' maxWidth='xs'>
+        <Container component='main' maxWidth='xs'
+            sx={{
+                height: '100%',
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center'
+            }}
+        >
             <Box component='form' noValidate
                 onSubmit={handleSubmit}
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'center'
                 }}
             >
                 <Typography component='h1' variant='h4'>
@@ -138,23 +146,41 @@ export default function Signup() {
                             <Checkbox 
                             checked={persist}
                             onClick={() => setPersist(prevPersist => !prevPersist)}
+                            style={{
+                                color: `${theme.palette.primary.light}c0`
+                            }}
                             />
                         }    
                             label='Remember me'
                         />
                     </Grid>
-                    <Grid item>
+                    <Grid item xs={12}
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center'
+                        }}
+                    >
                         <Button
                             type='submit'
                             variant='contained'
-                            disabled={!(validEmail && validPwd && validMatch)}
+                            sx={{
+                                width: '70%',
+                                height: '2.5rem',
+                                fontSize: '0.9rem'
+                            }}
                         >
                             Create Account
                         </Button>
                     </Grid>
-                </Grid>
-                <Grid item xs={12} sx={{alignSelf: 'start'}}>
-                    <Link to='/login'>Log In</Link>
+                    <Grid item xs={12}>
+                        <Link to='/login'
+                            style={{
+                                textDecoration: 'none',
+                                color: theme.palette.primary.contrastText,
+                                
+                            }}
+                        >Log In</Link>
+                    </Grid>
                 </Grid>
             </Box>
         </Container>

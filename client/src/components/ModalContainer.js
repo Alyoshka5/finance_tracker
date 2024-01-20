@@ -6,7 +6,13 @@ export default function ModalContainer() {
     const {modalOpen, setModalOpen, contentComponent} = useModal();
 
     return (
-        <Box>
+        <Box
+            sx={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+            }}
+        >
             <Box
             sx={{
                     display: (modalOpen ? 'flex' : 'none'),
@@ -15,6 +21,7 @@ export default function ModalContainer() {
                     position: 'absolute',
                     top: '0',
                     left: '0',
+                    zIndex: '10',
                     justifyContent: 'center',
                     alignItems: 'center',
                     backgroundColor: '#ffffff00',

@@ -1,9 +1,9 @@
 import { Box, Button, Typography } from "@mui/material";
 import useTransactions from "../../hooks/useTransactions";
 import { useEffect, useState } from "react";
-import GroupRow from "./GroupRow";
 import OverviewChart from "./OverviewChart";
-
+import TypeSelectionButtons from "./TypeSelectionButtons";
+import GroupList from "./GroupList";
 
 export default function OverviewPanel() {
     const { transactions } = useTransactions();
@@ -61,20 +61,34 @@ export default function OverviewPanel() {
     return (
         <Box sx={{
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
+            padding: '1rem 1.2rem'
         }}>
             <Typography variant='h5' style={{zIndex: '1'}}>Overview</Typography>
 
-            <OverviewChart groupList={groupList} />
+            {
+                transactions.length === 0 ?
+                    <Typography
+                        sx={{
+                            padding: '0.8rem 0'
+                        }}
+                        variant='body1'
+                    >
+                        No transactions.
+                    </Typography>
+                :
+                    <Box>
+                        <OverviewChart groupList={groupList} />
+            
+                        <TypeSelectionButtons 
+                            transactionType={transactionType}
+                            setTransactionType={setTransactionType} 
+                        />
+            
+                        <GroupList groupList={groupList} />
+                    </Box>
+            }
 
-            <Box>
-                <Button variant={transactionType === 'Expense' ? 'outlined' : ''} onClick={() => setTransactionType('Expense')}>Expense</Button>
-                <Button variant={transactionType === 'Income' ? 'outlined' : ''} onClick={() => setTransactionType('Income')}>Income</Button>
-            </Box>
-
-            {Object.keys(groupList).map(key => {
-                return (<GroupRow key={key} groupTitle={key} amount={groupList[key]} />)
-            })}
         </Box>
     )
 }
