@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { TextField, Box, Grid, Button, Typography, useTheme } from '@mui/material';
+import { TextField, Box, Grid, Button, Typography, useTheme, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useTransactions from '../../hooks/useTransactions';
 import useModal from '../../hooks/useModal';
@@ -13,7 +13,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 const emptyTransaction = {
     amount: '',
     date: '',
-    type: '',
+    type: 'Expense',
     category: '',
     description: '',
     details: ''
@@ -61,7 +61,7 @@ export default function TransactionForm({ targetTransaction }) {
             setTransaction({
                 amount: '',
                 date: '',
-                type: '',
+                type: 'Expense',
                 category: '',
                 description: '',
                 details: ''
@@ -129,16 +129,24 @@ export default function TransactionForm({ targetTransaction }) {
                 </Grid>
                 
                 <Grid item xs={5}>
-                    <TextField
-                        required
-                        fullWidth
-                        label='Type'
-                        type='text'
-                        value={transaction.type}
-                        onChange={(e) => setTransaction(prev => {
-                            return {...prev, type: e.target.value}
-                        })}
-                    />
+                    <FormControl
+                        sx={{
+                            width: '100%',
+                        }}
+                    >
+                        <InputLabel>Type</InputLabel>
+                        <Select
+                            required
+                            label='Typ' // must be a letter shorter for proper spacing
+                            value={transaction.type}
+                            onChange={(e) => setTransaction(prev => {
+                                return {...prev, type: e.target.value}
+                            })}
+                        >
+                            <MenuItem value='Expense'>Expense</MenuItem>
+                            <MenuItem value='Income'>Income</MenuItem>
+                        </Select>
+                    </FormControl>
                 </Grid>
                 
                 <Grid item xs={5}>
