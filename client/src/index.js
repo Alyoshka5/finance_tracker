@@ -3,13 +3,25 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { AuthProvider } from './context/AuthProvider';
+import { TransactionProvider } from './context/TransactionProvider';
+import { ModalProvider } from './context/ModalProvider';
+import StyleProvider from './context/StyleProvider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root')
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <StyleProvider>
+      <AuthProvider>
+        <TransactionProvider>
+          <ModalProvider>
+            <App />
+          </ModalProvider>
+        </TransactionProvider>
+      </AuthProvider>
+    </StyleProvider>
   </React.StrictMode>
 );
 
