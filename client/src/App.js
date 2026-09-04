@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import TransactionPage from './components/transactions/TransactionPage';
+import AccountPage from './components/accounts/AccountPage';
 import Signup from './components/authentication/Signup';
 import Login from './components/authentication/Login';
 import RequireAuth from './components/authentication/RequireAuth';
@@ -23,11 +24,14 @@ function App() {
             <Route element={<PersistLogin />}>
               <Route element={<RequireAuth />} >
                 <Route element={<ModalContainer />}>
-                
-                  <Route path='/' element={
+                  <Route path='/' element={<Navigate to='/transactions' replace />} />
+                  <Route path='/transactions' element={
                       <TransactionPage />
                   } />
-                  
+                  <Route path='/accounts' element={
+                      <AccountPage />
+                  } />
+                  <Route path='*' element={<Navigate to='/transactions' replace />} />
                 </Route>
               </Route>
             </Route>
