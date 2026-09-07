@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import useTransactions from "../../hooks/useTransactions";
 import { useEffect, useState } from "react";
 import OverviewChart from "./OverviewChart";
@@ -9,6 +9,7 @@ export default function OverviewPanel() {
     const { transactions } = useTransactions();
     const [groupedCategories, setGroupedCategories] = useState([{Expense: {}, Income: {}}, {Expense: {}, Income: {}}]);
     const [transactionType, setTransactionType] = useState('Expense');
+    const theme = useTheme();
     
     useEffect(() => {
         setGroupedCategories(groupCategories());
@@ -62,7 +63,10 @@ export default function OverviewPanel() {
         <Box sx={{
             display: 'flex',
             flexDirection: 'column',
-            padding: '1rem 1.2rem'
+            margin: '0 1rem',
+            padding: '1.5rem 1.2rem',
+            borderRadius: '1.5rem',
+            backgroundColor: theme.palette.primary.contrastMain
         }}>
             <Typography variant='h5' style={{zIndex: '1'}}>Overview</Typography>
 

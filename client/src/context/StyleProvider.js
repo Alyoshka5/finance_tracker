@@ -1,12 +1,11 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const primaryColors = {
-    main: '#002536',
+    main: '#001823',
     lighterMain: '#002B3F',
     light: '#B2D5EE',
-    dark: '#0E2532',
-    contrastDark: '#001C29',
-    contrastText: '#B2D5EE'
+    contrastMain: '#001e2c',
+    contrastText: '#FFFFFF'
 }
 
 const theme = createTheme({
@@ -29,7 +28,7 @@ const theme = createTheme({
                 },
                 contained: {
                     backgroundColor: primaryColors.light,
-                    color: primaryColors.contrastDark,
+                    color: primaryColors.contrastMain,
                     fontWeight: 'bold',
                     '&:hover': {
                         backgroundColor: '#9dc9e9',
@@ -99,7 +98,7 @@ const theme = createTheme({
         MuiMenuItem: {
             styleOverrides: {
                 root: {
-                    color: primaryColors.contrastDark
+                    color: primaryColors.contrastMain
                 }
             }
         }
