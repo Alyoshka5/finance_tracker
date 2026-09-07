@@ -10,14 +10,14 @@ export default function TransactionEntry({ transaction }) {
 
     const tableCellStyles = {
         color: theme.palette.primary.contrastText,
-        borderColor: `${theme.palette.primary.contrastDark}88`
+        borderColor: `${theme.palette.primary.contrastMain}88`
     }
 
     return (
         <TableRow
             sx={{ 
                 '&:last-child td, &:last-child th': { border: 0 }, 
-                '&:hover': { backgroundColor: theme.palette.primary.lighterMain, cursor: 'pointer' },
+                '&:hover': { backgroundColor: theme.palette.primary.contrastMain, cursor: 'pointer' },
                 color: theme.palette.primary.contrastText,
             }}
             onClick={() => openModal(<TransactionDetailModal transaction={transaction} />)}

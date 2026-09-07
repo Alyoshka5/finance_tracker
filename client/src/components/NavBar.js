@@ -24,8 +24,8 @@ export default function NavBar() {
                 width: '240px',
                 flexShrink: 0,
                 '& .MuiDrawer-paper': {
-                    color: theme.palette.primary.contrastText,
-                    backgroundColor: theme.palette.primary.contrastDark,
+                    color: theme.palette.primary.light,
+                    backgroundColor: theme.palette.primary.contrastMain,
                     width: '240px',
                     boxSizing: 'border-box',
                     display: 'flex',

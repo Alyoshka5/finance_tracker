@@ -37,12 +37,12 @@ export default function TransactionPage() {
             flex='1'
         >
             <Box
-                width='78%'
+                width='75%'
             >
                 <TransactionTableContainer />
             </Box>
             <Box
-                width='22%'
+                width='25%'
             >
                 <OverviewPanel />
             </Box>

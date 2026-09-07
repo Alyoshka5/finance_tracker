@@ -9,7 +9,7 @@ export default function TransactionTable() {
 	const tableCellStyles = {
 		fontWeight: 'bold',
 		color: theme.palette.primary.contrastText,
-		borderColor: `${theme.palette.primary.contrastDark}88`
+		borderColor: `${theme.palette.primary.contrastMain}88`
 	}
 
     return (

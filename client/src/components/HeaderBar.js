@@ -21,7 +21,7 @@ export default function HeaderBar() {
             justifyContent='space-between'
             padding='0.8rem 1.2rem'
             position={auth.userId ? '' : 'absolute'}
-            borderBottom={auth.userId ? `1px solid ${theme.palette.primary.contrastDark}` : ''}
+            borderBottom={auth.userId ? `1px solid ${theme.palette.primary.contrastMain}` : ''}
         >
             <SiteHeader />
             {

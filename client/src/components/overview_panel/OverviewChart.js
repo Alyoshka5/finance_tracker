@@ -28,7 +28,7 @@ export default function OverviewChart({ groupList }) {
         pieSliceBorderColor: 'transparent',
         tooltip: {
             textStyle: {
-                color: theme.palette.primary.dark,
+                color: theme.palette.primary.main,
                 fontName: theme.typography.fontFamily,
                 bold: true
             },

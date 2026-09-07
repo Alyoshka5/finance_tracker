@@ -14,7 +14,6 @@ export default function TransactionTableContainer() {
             flexDirection='column'
             gap='0.5rem'
             padding='1rem 1.2rem'
-            borderRight={`1px solid ${theme.palette.primary.contrastDark}`}
             height='100%'
             boxSizing='border-box'
         >
@@ -22,11 +21,15 @@ export default function TransactionTableContainer() {
                 display='flex'
                 justifyContent='space-between'
             >
-                <Typography variant='h4'>Transactions</Typography>
+                <Typography variant='h4' sx={{color: theme.palette.primary.contrastText}}>Transactions</Typography>
                 <Button
-                    variant='outlined'
+                    variant='contained'
                     onClick={() => openModal(<TransactionForm />)}
-                    sx={{'&:hover': {borderColor: theme.palette.primary.light, backgroundColor: theme.palette.primary.lighterMain}}}
+                    sx={{
+                        backgroundColor: theme.palette.primary.light,
+                        color: theme.palette.primary.main,
+                        borderRadius: '0.5rem'
+                    }}
                     startIcon={<AddIcon />}
                 >
                     Add Transaction
